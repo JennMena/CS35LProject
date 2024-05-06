@@ -1,0 +1,47 @@
+TO SET UP EVERYONE'S ENVIRONMENT:
+
+Install SQL Server and Management Studio on windows:
+https://www.youtube.com/watch?v=udp1lQe6SZ0
+
+When you are prompted with "Authentication mode" during installation of SQL server select "Mixed"
+Usuario default: sa
+And use any passwords
+I you didn't selected "Mixed" then you will access SQL Management Studio with your Windows Authentication
+
+This is important because this are the credentials that you need to update to your own in Backend\src\config\database.js
+This way the project will connect to your database
+
+On SQL Server Configuration Manager:
+Go to Network (last one) -> TCP/IP -> IP Address, then:
+set Enables to YES for:
+127.0.0.1
+::1
+
+_______________________________________________________________________________
+After SQL Management Studio is working you can create a "New Query" and paste the code in "budget_structure.sql" then execute it. This will create the database.
+
+
+Install Node Version Manager (nvm-setup.exe), then run:
+nvm install 16
+nvm use 16 //Is to use the version 16 so that the project works
+node --version //Should say 16
+
+To install Nodemon:
+(Nodemon watches your files, and if any file it is monitoring changes, it automatically restarts your application with the new changes)
+Open a terminal on the project of Backend:
+npm install -g nodemon
+nodemon ./src/app.js
+	- If it gives an error open the CMD as admin and run: Set-ExecutionPolicy RemoteSigned
+
+
+AFTER ABOVE, TO SET UP FRONT END PROJECT
+Open the folder in VS and in a terminal run:
+npm install
+nodemon ./src/app.js
+
+TO SET UP BACKEND PROJECT
+Open the folder in VS in a terminal run:
+npm install
+npm start
+
+
