@@ -1,13 +1,16 @@
 const express = require('express');
 const router =  express.Router();
-const { getConnection, sql } = require('../../config/database'); //eliminar despues
 
 const appUserController = require('../controllers/appUserController.js');
 
 router.get('/users', appUserController.getAllUsers);
 
-//router.get('/users/:id', appUserController.getUserById);
+router.get('/users/:id', appUserController.getUserById);
 
 router.post('/users', appUserController.addUser); 
+
+router.put('/users', appUserController.updateUser); 
+
+router.delete('/users/:id', appUserController.deleteUser); 
 
 module.exports = router;

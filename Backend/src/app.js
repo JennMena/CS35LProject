@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRoutes = require('./api/routes/userRoutes');
 
+const roleRoutes = require('./api/routes/appRoleRoutes');
+
 const app = express();
 const port = process.env.port || 3001;
 
@@ -16,6 +18,7 @@ app.get('/', (req, res) => {
 
 //Routes
 app.use('/', userRoutes);
+app.use('/', roleRoutes);
 
 app.listen(port, () => {
     console.log(`Server runs at http://localhost:${port}`);

@@ -37,6 +37,7 @@ const getUserById = async (id) => {
             .input('idArg', sql.BigInt, id) //Creates SQL argument 'idArg' with the 'id' passed to the function
             .query('SELECT * FROM AppUser WHERE id = @idArg');
         const record = result.recordset[0];
+        console.log({record})
         if (record) {
             return new AppUser(
                 record.id,
@@ -54,16 +55,15 @@ const getUserById = async (id) => {
                 record.enabled
             );
         }
-        return null;
     } catch (error) {
-        console.log('Function services/getAllUsers error:', error);
+        console.log('Function services/getUserById error:', error);
         throw error;
     }
 };
 
 const addUser = async (appUser) => {
     try {
-        console.log({appUser});
+        //console.log({appUser});
         const pool = await getConnection();
         const result = await pool.request()
             .input('firstName', sql.VarChar(100), appUser.firstName)
@@ -102,11 +102,11 @@ const addUser = async (appUser) => {
     }
 };
 
-const updateUser = async (appUser, id) => {
+const updateUser = async (appUser) => {
     try {
         const pool = await getConnection();
         await pool.request()
-            .input('id', sql.BigInt, id)
+            .input('id', sql.BigInt, appUser.id)
             .input('firstName', sql.VarChar(100), appUser.firstName)
             .input('lastName', sql.VarChar(100), appUser.lastName)
             .input('username', sql.VarChar(50), appUser.username)
