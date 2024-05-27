@@ -90,9 +90,7 @@ const login = async(req, res) => {
     try{
         const result = await appUserService.login(req.body.username, req.body.password);
         if(result){ 
-            res.status(200).json( { existe: result,
-                saludo: 'Hola'
-             } );
+            res.status(200).json( { existe: result } );
         }
         else
         {
