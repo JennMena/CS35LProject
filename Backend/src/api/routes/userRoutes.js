@@ -13,4 +13,6 @@ router.put('/users', appUserController.updateUser);
 
 router.delete('/users/:id', appUserController.deleteUser); 
 
+router.post('/login', appUserController.login);
+
 module.exports = router;

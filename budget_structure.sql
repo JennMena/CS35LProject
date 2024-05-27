@@ -18,9 +18,9 @@ create table LocationCity(
     CONSTRAINT fk_LocationCity_provinceId FOREIGN KEY (locationStateId) REFERENCES LocationState(id)
 )
 insert into LocationCity(locationStateId, name) values 
-(1, 'Los Ángeles'),
+(1, 'Los ï¿½ngeles'),
 (1, 'San Diego'),
-(1, 'San José'),
+(1, 'San Josï¿½'),
 (1, 'San Francisco'),
 (1, 'Long Beach'),
 (1, 'Fresno'),
@@ -80,7 +80,7 @@ CREATE TABLE Category(
 	id bigint IDENTITY PRIMARY KEY,
     appUserId bigint NOT NULL,
     name varchar(100) NOT NULL,
-    type varchar(1) NOT NULL, -- Income or expense
+    type varchar(1) NOT NULL, -- Income[I] or expense[E]
     description varchar(500),
     enabled bit DEFAULT(1),
     CONSTRAINT fk_Category_userId FOREIGN KEY (appUserId) REFERENCES AppUser(id)

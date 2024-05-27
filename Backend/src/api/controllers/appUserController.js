@@ -14,8 +14,8 @@ const getAllUsers = async (req, res) => {
 const getUserById = async (req, res) => {
     try {
         console.log(req.id)
-        const allUsers = await appUserService.getUserById(req.params.id);
-        res.status(200).json(allUsers);
+        const user = await appUserService.getUserById(req.params.id);
+        res.status(200).json(user);
     } catch (error) {
         console.error('Function controllers/getUserById error:', error);
         res.status(500).send('Error when getting user from the database');
@@ -83,12 +83,33 @@ const deleteUser = async (req, res) => {
         console.error('Function controllers/deleteUser error:', error);
         res.status(500).send('Error when deleting user from the database');
     }
+    
 };
+
+const login = async(req, res) => {
+    try{
+        const result = await appUserService.login(req.body.username, req.body.password);
+        if(result){ 
+            res.status(200).json( { existe: result,
+                saludo: 'Hola'
+             } );
+        }
+        else
+        {
+            res.status(401).json( { existe: result });
+        }
+    }
+    catch(error){
+        console.error('Function controllers/deleteUser error:', error);
+        res.status(500).send('Error ');
+    }
+}
 
 module.exports = {
     getAllUsers,
     getUserById,
     addUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    login
 }
