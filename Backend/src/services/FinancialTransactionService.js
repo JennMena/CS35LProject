@@ -2,8 +2,7 @@ const FinancialTransaction = require('../models/FinancialTransactionModel.js');
 const { getConnection, sql } = require('../config/database.js');
 
 const getAllFinancialTransactions = async () => {
-    try {
-financialTransactionModel        //Pool to be an instance of connection *
+    try {      //Pool to be an instance of connection *
         const pool = await getConnection(); //Await because the getConnection function is async
         const result = await pool.request().query('SELECT * FROM FinancialTransaction');
         return result.recordset.map(record => new FinancialTransaction(

@@ -21,9 +21,9 @@ const addBudget = async (req, res) => {
             req.body.year,
             req.body.registrationDate
         );
-        const user = await BudgetService.addBudget(Budget);
+        const budget = await BudgetService.addBudget(Budget);
         //Update to success code after inserting
-        res.status(200).json(user);
+        res.status(200).json(budget);
     } catch (error) {
         console.error('Function controllers/addBudget error:', error);
         res.status(500).send('Error when adding Budget from the database');
@@ -31,7 +31,54 @@ const addBudget = async (req, res) => {
 };
 
 
+
+const getBudgetById = async (req, res) => {
+    try {
+        console.log(req.id)
+        const budget = await BudgetService.getBudgetById(req.params.id);
+        res.status(200).json(budget);
+    } catch (error) {
+        console.error('Function controllers/getBudgetById error:', error);
+        res.status(500).send('Error when getting budget from the database');
+    }
+};
+
+
+const updateBudget = async (req, res) => {
+    try {
+        const budget = new BudgetModel(
+            req.body.id,
+            req.body.userId,
+            req.body.amount,
+            req.body.month,
+            req.body.year,
+            req.body.registrationDate
+        );
+        const fixedBudget = await BudgetService.updateBudget(budget);
+        //Update to success code after inserting
+        res.status(200).json(fixedBudget);
+    } catch (error) {
+        console.error('Function controllers/updateBudget error:', error);
+        res.status(500).send('Error when updating budget from the database');
+    }
+};
+
+const deleteBudget = async (req, res) => {
+    try {
+        const allBudgets = await BudgetService.deleteBudget(req.params.id);
+        res.status(200).json(allBudgets);
+    } catch (error) {
+        console.error('Function controllers/deleteBudget error:', error);
+        res.status(500).send('Error when deleting budget from the database');
+    }
+    
+};
+
+
 module.exports = {
     getAllBudgets,
-    addBudget
+    addBudget,
+    getBudgetById,
+    updateBudget,
+    deleteBudget
 }
