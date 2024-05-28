@@ -6,8 +6,4 @@ router.post('/ftf', FTFController.addFTF);
 
 router.get('/ftf', FTFController.getAllFTFs); 
 
-router.put('/ftf', FTFController.updateFTF); 
-
-router.delete('/ftf/:id', FTFController.deleteFTF); 
-
 module.exports = router;

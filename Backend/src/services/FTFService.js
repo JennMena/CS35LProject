@@ -3,12 +3,13 @@ const { getConnection, sql } = require('../config/database.js');
 
 const getAllFTFs = async () => {
     try {
-ftfModel        //Pool to be an instance of connection *
+       //Pool to be an instance of connection *
         const pool = await getConnection(); //Await because the getConnection function is async
-        const result = await pool.request().query('SELECT * FROM FTF');
+        const result = await pool.request().query('SELECT * FROM FinancialTransactionFixed');
         return result.recordset.map(record => new FTF(
             record.id,
             record.appUserId,
+            record.categoryId,
             record.amount,
             record.registrationDate,
             record.frequency,
@@ -19,7 +20,7 @@ ftfModel        //Pool to be an instance of connection *
             record.fk_FinancialTransactionFixed_categoryId
         ));
     } catch (error) {
-        console.log('Function services/getAllBudgets error:', error);
+        console.log('Function services/getFTFs error:', error);
         throw error;
     }
 };
@@ -29,12 +30,13 @@ const getFTFById = async (id) => {
         const pool = await getConnection();
         const result = await pool.request() //The following lines are a dynamic query
             .input('idArg', sql.BigInt, id) //Creates SQL argument 'idArg' with the 'id' passed to the function
-            .query('SELECT * FROM FTF WHERE id = @idArg');
+            .query('SELECT * FROM FinancialTransactionFixed WHERE id = @idArg');
         const record = result.recordset[0];
         if (record) {
             return new FTF(
                 record.id,
                 record.appUserId,
+                record.categoryId,
                 record.amount,
                 record.registrationDate,
                 record.frequency,
@@ -66,7 +68,7 @@ const addFTF = async (ftf) => {
             .input('enabled', sql.Bit, ftf.enabled)
             
             //Query to insert into database
-            .query(`INSERT INTO FTF (appUserId, categoryId, amount, frequency, dayOfMonth, description, enabled) VALUES (@appUserId, @categoryId, @amount, @frequency, @dayOfMonth, @description, @enabled);
+            .query(`INSERT INTO FinancialTransactionFixed (appUserId, categoryId, amount, frequency, dayOfMonth, description, enabled) VALUES (@appUserId, @categoryId, @amount, @frequency, @dayOfMonth, @description, @enabled);
             SELECT SCOPE_IDENTITY() as id;`); //Scope identity returns id of the new user added
         return new FTF(
             result.recordset[0].id,
@@ -97,7 +99,7 @@ const updateFTF = async (FTF, id) => {
         .input('dayOfMonth', sql.TinyInt, FTF.dayOfMonth)
         .input('description', sql.VarChar, FTF.description)
         .input('enabled', sql.Bit, FTF.enabled)
-            .query('UPDATE Budget SET appUserId = @appUserId,categoryId = @categoryID, amount = @amount, frequency = @frequency, dayOfMonth = @dayOfMonth, description = @description, enabled = @enabled');
+            .query('UPDATE FinancialTransactionFixed SET appUserId = @appUserId,categoryId = @categoryID, amount = @amount, frequency = @frequency, dayOfMonth = @dayOfMonth, description = @description, enabled = @enabled');
         //return getUserById(id);
     } catch (error) {
         console.log('Function services/updateFTF error:', error);
@@ -110,7 +112,7 @@ const deleteFTF = async (id) => {
         const pool = await getConnection();
         await pool.request()
             .input('id', sql.BigInt, id)
-            .query('DELETE FROM FTF WHERE id = @id');
+            .query('DELETE FROM FinancialTransactionFixed WHERE id = @id');
         return "Deleted correctly";
     } catch (error) {
         console.log('Function services/deleteFTF error:', error);
