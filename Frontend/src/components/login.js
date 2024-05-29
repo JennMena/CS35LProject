@@ -38,14 +38,15 @@ const SignInForm = () => {
     };
 
 
-    console.log('Form submitted:', requestData); // Debug log
+    //console.log('Form submitted:', requestData); // Debug log
 
 
     // Make the HTTP request
-    axios.post(backendAPI + 'login', requestData)
+    // withCredentials: true -> ensures that axios sends cookies (including session cookies)
+    // with the requests -> maintaining the session between the client and server.
+    axios.post(backendAPI + 'login', requestData, { withCredentials: true })
       .then((response) => {
-        console.log('Success:', response.data);
-        if (response.data.existe) {
+        if (response.data.exist) {
           // Redirect to home page on successful login
           navigate('/home-page');
         } else {

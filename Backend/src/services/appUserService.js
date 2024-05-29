@@ -140,15 +140,23 @@ const deleteUser = async (id) => {
     }
 };
 
-const login = async(username, password) => {
+const login = async (req, username, password) => {
     try {
         const pool = await getConnection();
         const result = await pool.request()
             .input('username', sql.VarChar(50), username)
             .input('pass', sql.VarChar(500), password)
-            .query(`SELECT username FROM AppUser WHERE username=@username AND password=@pass`);
-        return (result.recordset.length > 0);
-
+            .query(`SELECT id, username FROM AppUser WHERE username=@username AND password=@pass`);
+        
+        if (result.recordset.length > 0) {
+            const user = result.recordset[0];
+            req.session.user = {
+                id: user.id,
+                username: user.username
+            };
+            return true;
+        }
+        return false;
     } catch (error) {
         console.log('Function services/appUserService/login error:', error);
         throw error;

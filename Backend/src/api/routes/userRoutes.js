@@ -1,6 +1,8 @@
 const express = require('express');
 const router =  express.Router();
 
+const isAuthenticated = require('../controllers/authMiddleware');
+
 const appUserController = require('../controllers/appUserController.js');
 
 /**
@@ -68,8 +70,7 @@ const appUserController = require('../controllers/appUserController.js');
  *               type: string
  *               example: "Error when getting users from the database"
  */
-router.get('/users', appUserController.getAllUsers);
-
+router.get('/users', isAuthenticated, appUserController.getAllUsers);
 
 /**
  * @swagger
@@ -141,7 +142,7 @@ router.get('/users', appUserController.getAllUsers);
  *               type: string
  *               example: "Error when getting user from the database"
  */
-router.get('/users/:id', appUserController.getUserById);
+router.get('/users/:id', isAuthenticated, appUserController.getUserById);
 
 /**
  * @swagger
@@ -285,8 +286,7 @@ router.post('/users', appUserController.addUser);
  *               type: string
  *               example: "Error when updating user in the database"
  */
-router.put('/users', appUserController.updateUser);
-
+router.put('/users', isAuthenticated, appUserController.updateUser);
 
 /**
  * @swagger
@@ -317,7 +317,7 @@ router.put('/users', appUserController.updateUser);
  *               type: string
  *               example: "Error when deleting user from the database"
  */
-router.delete('/users/:id', appUserController.deleteUser);
+router.delete('/users/:id', isAuthenticated, appUserController.deleteUser);
 
 /**
  * @swagger

@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const session = require('express-session');
+const crypto = require('crypto');
+
 //TO AUTOMATE THE CREATION OF DOCUMENTATION WITH SWAGGER API
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
@@ -23,13 +26,23 @@ const financialTransactionRoutes = require('./api/routes/financialTransactionRou
 const app = express();
 const port = process.env.port || 3001;
 
-app.use(bodyParser.json());
-app.use(cors()); // Enable CORS
+// Configure session middleware
+const secretkey = crypto.randomBytes(64).toString('hex');
+app.use(session({
+  secret: secretkey, 
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Set to true if using HTTPS
+}));
 
-// Basic Route
-app.get('/', (req, res) => {
-    res.send('API is running');
-});
+app.use(bodyParser.json());
+
+// Enable CORS with credentials
+app.use(cors({
+  origin: 'http://localhost:3000', // Update to your frontend's URL
+  credentials: true
+}));
+
 
 // Routes
 app.use('/', userRoutes);

@@ -88,17 +88,18 @@ const deleteUser = async (req, res) => {
 
 const login = async(req, res) => {
     try{
-        const result = await appUserService.login(req.body.username, req.body.password);
-        if(result){ 
-            res.status(200).json( { existe: result } );
+        const { username, password } = req.body;
+        const isLoggedIn = await appUserService.login(req, username, password);
+        if(isLoggedIn){ 
+            res.status(200).json( { exist: isLoggedIn } );
         }
         else
         {
-            res.status(401).json( { existe: result });
+            res.status(401).json( { exist: isLoggedIn });
         }
     }
     catch(error){
-        console.error('Function controllers/deleteUser error:', error);
+        console.error('Function controllers/login error:', error);
         res.status(500).send('Error ');
     }
 }

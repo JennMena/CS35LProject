@@ -2,6 +2,7 @@ const express = require('express');
 const router =  express.Router();
 
 const categoryController = require('../controllers/categoryController.js');
+const isAuthenticated = require('../controllers/authMiddleware');
 
 /**
  * @swagger
@@ -68,7 +69,7 @@ const categoryController = require('../controllers/categoryController.js');
  *               type: string
  *               example: "Error when adding category to the database"
  */
-router.post('/category', categoryController.addCategory);
+router.post('/category', isAuthenticated, categoryController.addCategory);
 
 
 /**
@@ -120,7 +121,7 @@ router.post('/category', categoryController.addCategory);
  *               type: string
  *               example: "Error when retrieving categories from the database"
  */
-router.get('/category/:appUserId', categoryController.getCategoriesByUserId);
+router.get('/category/:appUserId', isAuthenticated, categoryController.getCategoriesByUserId);
 
 
 /**
@@ -165,7 +166,7 @@ router.get('/category/:appUserId', categoryController.getCategoriesByUserId);
  *               type: string
  *               example: "Error when retrieving categories from the database"
  */
-router.get('/category', categoryController.getAllCategories);
+router.get('/category', isAuthenticated, categoryController.getAllCategories);
 
 /**
  * @swagger
@@ -220,7 +221,7 @@ router.get('/category', categoryController.getAllCategories);
  *               type: string
  *               example: "Error when retrieving category from the database"
  */
-router.get('/category/:id/:appUserId', categoryController.getCategoryByIdAndUserId);
+router.get('/category/:id/:appUserId', isAuthenticated, categoryController.getCategoryByIdAndUserId);
 
 /**
  * @swagger
@@ -287,7 +288,7 @@ router.get('/category/:id/:appUserId', categoryController.getCategoryByIdAndUser
  *               type: string
  *               example: "Error when updating category in the database"
  */
-router.put('/category', categoryController.updateCategory);
+router.put('/category', isAuthenticated, categoryController.updateCategory);
 
 /**
  * @swagger
@@ -336,6 +337,6 @@ router.put('/category', categoryController.updateCategory);
  *               type: string
  *               example: "Error when deleting category from the database"
  */
-router.delete('/category/:id', categoryController.deleteCategoryById);
+router.delete('/category/:id', isAuthenticated, categoryController.deleteCategoryById);
 
 module.exports = router;
