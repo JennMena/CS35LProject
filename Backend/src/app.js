@@ -8,11 +8,17 @@ const swaggerUi = require('swagger-ui-express');
 
 //Routes:
 const userRoutes = require('./api/routes/userRoutes');
+
 const categoryRoutes = require('./api/routes/categoryRoutes');
 const roleRoutes = require('./api/routes/appRoleRoutes');
 const permissionRoutes = require('./api/routes/permissionRoutes');
 const appRolePermissionRoutes = require('./api/routes/appRolePermissionRoutes');
 const appUserAppRoleRoutes = require('./api/routes/appUserAppRoleRoutes');
+
+const budgetRoutes = require('./api/routes/budgetRoutes')
+const ftfRoutes = require('./api/routes/ftfRoutes')
+const financialTransactionRoutes = require('./api/routes/financialTransactionRoutes')
+
 
 const app = express();
 const port = process.env.port || 3001;
@@ -32,6 +38,9 @@ app.use('/', categoryRoutes);
 app.use('/', permissionRoutes);
 app.use('/', appRolePermissionRoutes);
 app.use('/', appUserAppRoleRoutes);
+app.use('/', budgetRoutes);
+app.use('/', financialTransactionRoutes);
+app.use('/', ftfRoutes);
 
 
 const swaggerOptions = {
@@ -52,7 +61,7 @@ const swaggerOptions = {
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.listen(port, () => {
     console.log(`Server runs at http://localhost:${port}`);

@@ -1,9 +1,11 @@
 const sql = require('mssql');
 
 const config = {
+
     user: 'sa2',
     password: '1234',
     server: '127.0.0.1',
+
     database: 'BUDGET',
     options: {
         encrypt: true,
