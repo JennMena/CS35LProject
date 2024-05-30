@@ -90,12 +90,10 @@ const login = async(req, res) => {
     try{
         const { username, password } = req.body;
         const isLoggedIn = await appUserService.login(req, username, password);
-        if(isLoggedIn){ 
-            res.status(200).json( { exist: isLoggedIn } );
-        }
-        else
-        {
-            res.status(401).json( { exist: isLoggedIn });
+        if (isLoggedIn) {
+            res.json({ exist: true, userId: req.session.user.id });
+        } else {
+            res.status(401).json({ exist: false });
         }
     }
     catch(error){

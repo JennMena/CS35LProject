@@ -30,12 +30,12 @@ const getCategoriesByUserId = async (req, res) => {
     }
 };
 
-const getCategoryByIdAndUserId = async (req, res) => {
+const getCategoryById = async (req, res) => {
     try {
-        const category = await categoryService.getCategoryByIdAndUserId(req.params.id, req.params.appUserId);
+        const category = await categoryService.getCategoryById(req.params.id);
         res.status(200).json(category);
     } catch (error) {
-        console.error('Function controllers/getCategoryByIdAndUserId error:', error);
+        console.error('Function controllers/getCategoryById error:', error);
         res.status(500).send('Error when getting category from the database');
     }
 };
@@ -82,7 +82,7 @@ const deleteCategoryById = async (req, res) => {
 module.exports = {
     getAllCategories,
     getCategoriesByUserId,
-    getCategoryByIdAndUserId,
+    getCategoryById,
     addCategory,
     updateCategory,
     deleteCategoryById

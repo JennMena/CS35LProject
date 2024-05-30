@@ -70,7 +70,7 @@ const appUserController = require('../controllers/appUserController.js');
  *               type: string
  *               example: "Error when getting users from the database"
  */
-router.get('/users', isAuthenticated, appUserController.getAllUsers);
+router.get('/users', appUserController.getAllUsers);
 
 /**
  * @swagger
@@ -142,7 +142,7 @@ router.get('/users', isAuthenticated, appUserController.getAllUsers);
  *               type: string
  *               example: "Error when getting user from the database"
  */
-router.get('/users/:id', isAuthenticated, appUserController.getUserById);
+router.get('/users/:id', appUserController.getUserById);
 
 /**
  * @swagger

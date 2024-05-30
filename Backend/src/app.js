@@ -43,7 +43,6 @@ app.use(cors({
   credentials: true
 }));
 
-
 // Routes
 app.use('/', userRoutes);
 app.use('/', roleRoutes);

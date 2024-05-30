@@ -37,7 +37,7 @@ const getUserById = async (id) => {
             .input('idArg', sql.BigInt, id) //Creates SQL argument 'idArg' with the 'id' passed to the function
             .query('SELECT * FROM AppUser WHERE id = @idArg');
         const record = result.recordset[0];
-        console.log({record})
+        //console.log({record})
         if (record) {
             return new AppUser(
                 record.id,

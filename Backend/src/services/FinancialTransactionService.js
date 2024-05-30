@@ -2,8 +2,7 @@ const FinancialTransaction = require('../models/FinancialTransactionModel.js');
 const { getConnection, sql } = require('../config/database.js');
 
 const getAllFinancialTransactions = async () => {
-    try {
-financialTransactionModel        //Pool to be an instance of connection *
+    try {     
         const pool = await getConnection(); //Await because the getConnection function is async
         const result = await pool.request().query('SELECT * FROM FinancialTransaction');
         return result.recordset.map(record => new FinancialTransaction(
@@ -14,11 +13,30 @@ financialTransactionModel        //Pool to be an instance of connection *
             record.transactionDate,
             record.description,
             record.canceled,
-            record.fk_FinancialTransaction_appUserId,
-            record.fk_FinancialTransaction_categoryId
         ));
     } catch (error) {
         console.log('Function services/getAllFinancialTransactions error:', error);
+        throw error;
+    }
+};
+
+const getTransactionsByUserId = async (appUserId) => {
+    try {
+        const pool = await getConnection();
+        const result = await pool.request()
+            .input('appUserId', sql.BigInt, appUserId)
+            .query('SELECT * FROM FinancialTransaction WHERE appUserId = @appUserId');
+        return result.recordset.map(record => new FinancialTransaction(
+            record.id,
+            record.appUserId,
+            record.categoryId,
+            record.amount,
+            record.transactionDate,
+            record.description,
+            record.canceled
+        ));
+    } catch (error) {
+        console.log('Function services/getCategoriesByUserId error:', error);
         throw error;
     }
 };
@@ -38,9 +56,7 @@ const getFinancialTransactionById = async (id) => {
                 record.amount,
                 record.transactionDate,
                 record.description,
-                record.canceled,
-                record.fk_FinancialTransaction_appUserId,
-                record.fk_FinancialTransaction_categoryId
+                record.canceled
             );
         }
         return null;
@@ -69,9 +85,9 @@ const addFinancialTransaction = async (financialTransaction) => {
             financialTransaction.appUserId,
             financialTransaction.categoryId,
             financialTransaction.amount,
+            new Date(),
             financialTransaction.description,
             financialTransaction.canceled,
-            new Date(),
         );
 
     } catch (error) {
@@ -80,16 +96,16 @@ const addFinancialTransaction = async (financialTransaction) => {
     }
 };
 
-const updateFinancialTransaction = async (FinancialTransaction, id) => {
+const updateFinancialTransaction = async (FinancialTransaction) => {
     try {
         const pool = await getConnection();
         await pool.request()
-        .input('appUserId', sql.BigInt, FinancialTransaction.appUserId)
+        .input('id', sql.BigInt, FinancialTransaction.id)
         .input('categoryId',sql.BigInt,FinancialTransaction.categoryId)
         .input('amount', sql.Money, FinancialTransaction.amount)
         .input('description', sql.VarChar, FinancialTransaction.description)
-        .input('enabled', sql.Bit, FinancialTransaction.canceled)
-            .query('UPDATE Budget SET appUserId = @appUserId,categoryId = @categoryID, amount = @amount, description = @description, canceled = @canceled');
+        .input('canceled', sql.Bit, FinancialTransaction.canceled)
+            .query('UPDATE FinancialTransaction SET categoryId = @categoryId, amount = @amount, description = @description, canceled = @canceled WHERE id = @id');
     } catch (error) {
         console.log('Function services/updateFinancialTransaction error:', error);
         throw error;
@@ -114,5 +130,6 @@ module.exports = {
     getFinancialTransactionById,
     addFinancialTransaction,
     updateFinancialTransaction,
-    deleteFinancialTransaction
+    deleteFinancialTransaction,
+    getTransactionsByUserId
 };

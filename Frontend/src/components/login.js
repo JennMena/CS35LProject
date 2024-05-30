@@ -47,6 +47,8 @@ const SignInForm = () => {
     axios.post(backendAPI + 'login', requestData, { withCredentials: true })
       .then((response) => {
         if (response.data.exist) {
+          // Store the user ID in local storage
+          localStorage.setItem('userId', response.data.userId);
           // Redirect to home page on successful login
           navigate('/home-page');
         } else {

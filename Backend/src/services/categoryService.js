@@ -51,13 +51,13 @@ const getCategoriesByUserId = async (appUserId) => {
     }
 };
 
-const getCategoryByIdAndUserId = async (id, appUserId) => {
+const getCategoryById = async (id, appUserId) => {
     try {
         const pool = await getConnection();
         const result = await pool.request()
             .input('idArg', sql.BigInt, id)
             .input('appUserIdArg', sql.BigInt, appUserId)
-            .query('SELECT * FROM Category WHERE id = @idArg AND appUserId = @appUserIdArg');
+            .query('SELECT * FROM Category WHERE id = @idArg');
         const record = result.recordset[0];
         if (record) {
             return new Category(
@@ -130,7 +130,7 @@ const deleteCategoryById = async (id) => {
 module.exports = { 
     addCategory,
     getCategoriesByUserId,
-    getCategoryByIdAndUserId,
+    getCategoryById,
     getAllCategories,
     updateCategory,
     deleteCategoryById
