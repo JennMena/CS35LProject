@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import './sign.css';
 
 const SignInForm = () => {
   const backendAPI = "http://localhost:3001/";
@@ -64,62 +64,64 @@ const SignInForm = () => {
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>Sign In</h3>
-      <div className="mb-3">
-        <label>Email address</label>
-        <input
-          type="email"
-          name="email"
-          className="form-control"
-          placeholder="Enter email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="mb-3">
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          className="form-control"
-          placeholder="Enter password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="mb-3">
-        <div className="custom-control custom-checkbox">
+    <div className="sign-container">
+      <form onSubmit={handleSubmit}>
+        <h3>Sign In</h3>
+        <div className="mb-3">
+          <label>Email address</label>
           <input
-            type="checkbox"
-            name="rememberMe"
-            className="custom-control-input"
-            id="customCheck1"
-            checked={formData.rememberMe}
+            type="email"
+            name="email"
+            className="form-control"
+            placeholder="Enter email"
+            value={formData.email}
             onChange={handleChange}
           />
-          <label className="custom-control-label" htmlFor="customCheck1">
-            Remember me
-          </label>
         </div>
-      </div>
-      <div className="d-grid">
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </div>
-      {errorMessage && (
-        <div className="alert alert-danger mt-3" role="alert">
-          {errorMessage}
+        <div className="mb-3">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            className="form-control"
+            placeholder="Enter password"
+            value={formData.password}
+            onChange={handleChange}
+          />
         </div>
-      )}
-      <p className="forgot-password text-right">
-        Forgot <a href="#">password?</a>
-      </p>
-      <p className="forgot-password text-right">
-        Not yet registered? <a href="/sign-up">Create an account here.</a>
-      </p>
-    </form>
+        <div className="mb-3">
+          <div className="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              name="rememberMe"
+              className="custom-control-input"
+              id="customCheck1"
+              checked={formData.rememberMe}
+              onChange={handleChange}
+            />
+            <label className="custom-control-label" htmlFor="customCheck1">
+              Remember me
+            </label>
+          </div>
+        </div>
+        <div className="d-grid">
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </div>
+        {errorMessage && (
+          <div className="alert alert-danger mt-3" role="alert">
+            {errorMessage}
+          </div>
+        )}
+        <p className="forgot-password text-right">
+          Forgot <a href="#">password?</a>
+        </p>
+        <p className="forgot-password text-right">
+          Not yet registered? <a href="/sign-up">Create an account here.</a>
+        </p>
+      </form>
+    </div>
   );
 };
 

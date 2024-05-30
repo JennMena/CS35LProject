@@ -8,7 +8,7 @@ const ExpenseList = ({ expenses }) => {
         {expenses.map((expense, index) => (
           <li key={index}>
             <strong>Amount:</strong> ${expense.amount.toFixed(2)} - 
-            <strong> Reason:</strong> {expense.reason} - 
+            <strong> Category/Reason:</strong> {expense.reason} - 
             <strong> Time:</strong> {expense.time}
           </li>
         ))}

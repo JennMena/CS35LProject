@@ -60,7 +60,7 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
           />
         </label>
         <label>
-          Reason:
+          Category/Reason:
           <input 
             type="text" 
             value={expenseReason} 

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useHistory
+import './sign.css';
+
 
 const SignUpForm = () => {
   const backendAPI = "http://localhost:3001/";
@@ -51,16 +53,14 @@ const SignUpForm = () => {
 
     //console.log('Form submitted:', requestData); // Debug log
 
-    // Make the HTTP request
-    axios.post(backendAPI + 'login', requestData)
+      // Make the HTTP request
+    // withCredentials: true -> ensures that axios sends cookies (including session cookies)
+    // with the requests -> maintaining the session between the client and server.
+    axios.post(backendAPI + 'login', requestData, { withCredentials: true })
       .then((response) => {
-        console.log('Success:', response.data);
-        if (response.data.existe) {
-          // Redirect to home page on successful login
-          setErrorMessage('This email and password already exist. Please use different credentials.');
-        } 
-        else {
-          axios.post(backendAPI + 'users', requestDataForUser)
+        if (!response.data.exist) {
+          console.log('Success:', response.data);
+          axios.post(backendAPI + 'users', requestDataForUser, { withCredentials: true })
             .then((response) => {
               console.log('Success:', response.data);
               if (response.data) {
@@ -72,77 +72,82 @@ const SignUpForm = () => {
             })
             .catch((error) => {
               console.error('Error:', error);
-              setErrorMessage('Could not create user. Please try again later.');
+              setErrorMessage('Couldnt create user. Please try again later.');
             });
+        } else {
+          // Handle login failure
+          setErrorMessage('This email and password already exist. Please use different credentials.');
         }
       })
       .catch((error) => {
         console.error('Error:', error);
-        setErrorMessage('Failed to create user. Please try again later.');
+        setErrorMessage('Could not create user. Please try again later.');
       });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>Sign Up</h3>
-      <div className="mb-3">
-        <label>First name</label>
-        <input
-          type="text"
-          name="firstName"
-          className="form-control"
-          placeholder="First name"
-          value={formData.firstName}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="mb-3">
-        <label>Last name</label>
-        <input
-          type="text"
-          name="lastName"
-          className="form-control"
-          placeholder="Last name"
-          value={formData.lastName}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="mb-3">
-        <label>Email address</label>
-        <input
-          type="email"
-          name="email"
-          className="form-control"
-          placeholder="Enter email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="mb-3">
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          className="form-control"
-          placeholder="Enter password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="d-grid">
-        <button type="submit" className="btn btn-primary">
-          Sign Up
-        </button>
-      </div>
-      {errorMessage && (
-        <div className="alert alert-danger mt-3" role="alert">
-          {errorMessage}
+    <div className="sign-container">
+      <form onSubmit={handleSubmit}>
+        <h3>Sign Up</h3>
+        <div className="mb-3">
+          <label>First name</label>
+          <input
+            type="text"
+            name="firstName"
+            className="form-control"
+            placeholder="First name"
+            value={formData.firstName}
+            onChange={handleChange}
+          />
         </div>
-      )}
-      <p className="forgot-password text-right">
-        Already registered? <a href="/sign-in">Sign in here.</a>
-      </p>
-    </form>
+        <div className="mb-3">
+          <label>Last name</label>
+          <input
+            type="text"
+            name="lastName"
+            className="form-control"
+            placeholder="Last name"
+            value={formData.lastName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label>Email address</label>
+          <input
+            type="email"
+            name="email"
+            className="form-control"
+            placeholder="Enter email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            className="form-control"
+            placeholder="Enter password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="d-grid">
+          <button type="submit" className="btn btn-primary">
+            Sign Up
+          </button>
+        </div>
+        {errorMessage && (
+          <div className="alert alert-danger mt-3" role="alert">
+            {errorMessage}
+          </div>
+        )}
+        <p className="forgot-password text-right">
+          Already registered? <a href="/sign-in">Sign in here.</a>
+        </p>
+      </form>
+    </div>
   );
 };
 

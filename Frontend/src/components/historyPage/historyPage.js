@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import TransactionList from './TransactionList/transactionList'; // Ensure the correct import path
+import './historyPage.css'; // Import the new CSS file
 
 const backendAPI = "http://localhost:3001/";
 
@@ -31,7 +32,7 @@ const HistoryPage = () => {
   }, [userId, navigate]);
 
   return (
-    <div>
+    <div className="history-page-container">
       <h1>History Page</h1>
       {userId ? (
         <TransactionList userId={userId} />
