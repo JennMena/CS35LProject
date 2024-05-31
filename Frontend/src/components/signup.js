@@ -41,11 +41,11 @@ const SignUpForm = () => {
       username: formData.email,
       password: formData.password,
       locationCityId: 1,
-      address: "123 Main St",
-      locationCityId: 1,
-      email: "john.doe@example.com",
-      phoneNumber: "123-456-7890",
-      gender: 'M',
+      address: '',
+      locationCityId: 116, //Change this to 1 for you, mine is 116 because 1 doesn't exist in my DB
+      email: formData.email,
+      phoneNumber: '',
+      gender: '',
       enabled: true
     };
 

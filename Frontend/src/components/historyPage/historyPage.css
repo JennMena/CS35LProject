@@ -38,6 +38,7 @@
 
 .transaction-item {
   background: #fff;
+  position: relative;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -46,6 +47,22 @@
   height: auto;
   /* Allow auto height for flexibility */
   margin-bottom: 20px;
+}
+
+.buttons {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.buttons button{
+  background-color: inherit;
+  border: none;
+}
+
+.buttons button:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.25);
 }
 
 .transaction-item p {

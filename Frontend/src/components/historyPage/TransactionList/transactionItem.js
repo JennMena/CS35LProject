@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import editIcon from './edit.svg';
+import deleteIcon from './delete.svg';
+
 const backendAPI = "http://localhost:3001/";
 
 const TransactionItem = ({ transaction }) => {
@@ -27,6 +30,7 @@ const TransactionItem = ({ transaction }) => {
 
     fetchCategoryDetails();
   }, [transaction.categoryId]);
+
 
   return (
     <li className={`transaction-item ${type === 'Income' ? 'income' : 'expense'}`}>
