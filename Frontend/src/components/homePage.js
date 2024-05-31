@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import BudgetForm from './budgetForm';
 import BudgetGraph from './budgetGraph';
 import ExpenseList from './expenseList';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './homePage.css'; // Import the new CSS file
 
 const HomePage = () => {
@@ -29,6 +30,10 @@ const HomePage = () => {
       <BudgetForm onBudgetSubmit={handleBudgetSubmit} onExpenseSubmit={handleExpenseSubmit} />
       <BudgetGraph budget={budget} spent={spent} />
       <ExpenseList expenses={expenses} />
+      {/* Add a button to navigate to the transaction history page */}
+      <Link to="/history-page">
+        <button className="btn btn-primary history-button">Transaction History</button>
+      </Link>
     </div>
   );
 };
