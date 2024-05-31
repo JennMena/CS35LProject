@@ -18,9 +18,27 @@ const About = () => {
 
   return (
     <div style={aboutStyle}>
-      <h1>About Us</h1>
-      <p>Welcome to ExpenseTracker!</p>
-      <img src={Shivani} className="shivani-headshot" alt="Shivani" style={{ width: '100px', height: '100px' }}/>
+      <h1>About Us!</h1>
+      <p>What is ExpenseTracker?</p>
+      <p>
+                    Built for UCLA's CS35L Spring '24 using React.js and SQL,<br />
+                    <span className="inlinebudget">ExpenseTracker!</span> is an interactive full stack finance-tracking application for all your budgeting needs. <br />
+                </p>
+
+      <p>Created by ...</p>
+      <li>
+         Shivani Kolla
+      </li>
+      <li>
+         Quinn McCall
+      </li>
+      <li>
+         Jenn Mena
+      </li>
+      <li>
+         Samyukhtha Rajkumar Sridevi
+      </li>
+      <img src={Shivani} className="shivani-headshot" alt="Shivani" style={{ width: '175px', height: '200px' }}/>
     </div>
   );
 };
