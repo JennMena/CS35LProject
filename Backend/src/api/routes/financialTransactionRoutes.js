@@ -7,6 +7,5 @@ router.get('/financialtransaction', FinancialTransactionController.getAllFinanci
 router.get('/financialtransaction-user/:appUserId', FinancialTransactionController.getTransactionsByUserId);  
 router.put('/financialtransaction', FinancialTransactionController.updateFinancialTransaction);
 router.delete('/financialtransaction/:id', FinancialTransactionController.deleteFinancialTransaction);
-router.post('/financialtransaction', FinancialTransactionController.addFinancialTransaction); 
 
 module.exports = router;

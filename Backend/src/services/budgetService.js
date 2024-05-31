@@ -20,6 +20,26 @@ const getAllBudgets = async () => {
     }
 };
 
+const getBudgetByUserId = async (appUserId) => {
+    try {
+        const pool = await getConnection(); //Await because the getConnection function is async
+        const result = await pool.request()
+            .input('appUserId', sql.BigInt, appUserId)
+            .query('SELECT * FROM Budget WHERE userId = @appUserId');
+        return result.recordset.map(record => new Budget(
+            record.id,
+            record.userId,
+            record.amount,
+            record.month,
+            record.year,
+            record.registrationDate
+        ));
+    } catch (error) {
+        console.log('Function services/getBudgetByUserId error:', error);
+        throw error;
+    }
+};
+
 const getBudgetById = async (id) => {
     try {
         const pool = await getConnection();
@@ -53,7 +73,7 @@ const addBudget = async (budget) => {
             .input('amount', sql.Money, budget.amount)
             .input('month', sql.TinyInt, budget.month)
             .input('year', sql.SmallInt, budget.year)
-            
+
             //Query to insert into database
             .query(`INSERT INTO Budget (userId, amount, month, year) VALUES (@userId, @amount, @month, @year);
             SELECT SCOPE_IDENTITY() as id;`); //Scope identity returns id of the new user added
@@ -107,5 +127,6 @@ module.exports = {
     getBudgetById,
     addBudget,
     updateBudget,
-    deleteBudget
+    deleteBudget,
+    getBudgetByUserId
 };
