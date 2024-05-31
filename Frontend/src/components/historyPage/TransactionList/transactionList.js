@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TransactionItem from './transactionItem';
+import '../historyPage.css'; // Import the CSS file
 
 const backendAPI = "http://localhost:3001/";
 
@@ -23,15 +24,15 @@ const TransactionList = ({ userId }) => {
   }, [userId]);
 
   return (
-    <div>
+    <div className="transaction-list">
       {transactions.length > 0 ? (
         <ul>
           {transactions.map((transaction) => (
-            <TransactionItem key={transaction.id} transaction={transaction} userId={userId} />
+            <TransactionItem key={transaction.id} transaction={transaction} />
           ))}
         </ul>
       ) : (
-        <p>No transactions found.</p>
+        <p id="no-trans">No transactions found.</p>
       )}
     </div>
   );
