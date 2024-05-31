@@ -45,9 +45,7 @@ const SignUpForm = () => {
       locationCityId: 1,
       email: "john.doe@example.com",
       phoneNumber: "123-456-7890",
-      birthDate: "1990-01-01",
-      gender: "M",
-      registrationDate: "2023-01-01",
+      gender: 'M',
       enabled: true
     };
 
@@ -56,24 +54,11 @@ const SignUpForm = () => {
       // Make the HTTP request
     // withCredentials: true -> ensures that axios sends cookies (including session cookies)
     // with the requests -> maintaining the session between the client and server.
-    axios.post(backendAPI + 'login', requestData, { withCredentials: true })
+    axios.post(backendAPI + 'users', requestDataForUser, { withCredentials: true })
       .then((response) => {
-        if (!response.data.exist) {
+        if (response.data) {
           console.log('Success:', response.data);
-          axios.post(backendAPI + 'users', requestDataForUser, { withCredentials: true })
-            .then((response) => {
-              console.log('Success:', response.data);
-              if (response.data) {
-                navigate('/sign-in');
-              } else {
-                // Need to create the user in the backend
-                setErrorMessage('The account was unable to be created. Try again later.');
-              }
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-              setErrorMessage('Couldnt create user. Please try again later.');
-            });
+          navigate('/sign-in');
         } else {
           // Handle login failure
           setErrorMessage('This email and password already exist. Please use different credentials.');
@@ -81,7 +66,7 @@ const SignUpForm = () => {
       })
       .catch((error) => {
         console.error('Error:', error);
-        setErrorMessage('Could not create user. Please try again later.');
+        setErrorMessage('This email and/or password already exist. Please use different credentials.');
       });
   };
 
