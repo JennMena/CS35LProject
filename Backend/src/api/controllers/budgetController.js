@@ -84,11 +84,23 @@ const deleteBudget = async (req, res) => {
     
 };
 
+//////////////
+const getBudgetByUserIdAndMonth = async (req, res) => {
+    try {
+        const budget = await BudgetService.getBudgetByUserIdAndMonth(req.params.appUserId, req.params.month, req.params.year);
+        res.status(200).json(budget);
+    } catch (error) {
+        console.error('Function controllers/getBudgetByUserIdAndMonth error:', error);
+        res.status(500).send('Error when getting Budget for user from the database');
+    }
+};
+
 module.exports = {
     getAllBudgets,
     addBudget,
     getBudgetById,
     updateBudget,
     deleteBudget,
-    getBudgetByUserId
+    getBudgetByUserId,
+    getBudgetByUserIdAndMonth
 }

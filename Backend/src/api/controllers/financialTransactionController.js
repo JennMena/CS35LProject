@@ -84,6 +84,38 @@ const deleteFinancialTransaction = async (req, res) => {
     
 };
 
+///////////////////
+const getTransWithUserIdAndMonth = async (req, res) => {
+    try {
+        const FinancialTransactions = await FinancialTransactionService.getTransWithUserIdAndMonth(req.params.appUserId, req.params.type, req.params.month, req.params.year);
+        res.status(200).json(FinancialTransactions);
+    } catch (error) {
+        console.error('Function controllers/getTransWithUserIdAndMonth error:', error);
+        res.status(500).send('Error when getting financial transaction from the database');
+    }
+    
+};
+
+const getAllTransactionsOfMonth = async (req, res) => {
+    try {
+        const FinancialTransactions = await FinancialTransactionService.getAllTransactionsOfMonth(req.params.appUserId, req.params.month, req.params.year);
+        res.status(200).json(FinancialTransactions);
+    } catch (error) {
+        console.error('Function controllers/getAllTransactionsOfMonth error:', error);
+        res.status(500).send('Error when getting financial transaction from the database');
+    }
+    
+};
+
+const getSumOfTransactionsByTypeAndMonth = async (req, res) => {
+    try {
+        const sum = await FinancialTransactionService.getSumOfTransactionsByTypeAndMonth(req.params.appUserId, req.params.type, req.params.month, req.params.year);
+        res.status(200).json({ total : sum });
+    } catch (error) {
+        console.error('Function controllers/getSumOfTransactionsByTypeAndMonth error:', error);
+        res.status(500).send('Error when getting financial transaction from the database');
+    }
+};
 
 module.exports = {
     getAllFinancialTransactions,
@@ -91,5 +123,8 @@ module.exports = {
     getFinancialTransactionById,
     updateFinancialTransaction,
     deleteFinancialTransaction,
-    getTransactionsByUserId
+    getTransactionsByUserId,
+    getTransWithUserIdAndMonth,
+    getAllTransactionsOfMonth,
+    getSumOfTransactionsByTypeAndMonth
 }

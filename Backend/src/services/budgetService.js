@@ -122,11 +122,39 @@ const deleteBudget = async (id) => {
     }
 };
 
+//////
+const getBudgetByUserIdAndMonth = async (appUserId, month, year) => {
+    try {
+        const pool = await getConnection();
+        const result = await pool.request() 
+            .input('appUserId', sql.BigInt, appUserId) 
+            .input('month', sql.TinyInt, month) 
+            .input('year', sql.SmallInt, year) 
+            .query('SELECT * FROM Budget WHERE userId = @appUserId AND month = @month AND year = @year');
+        const record = result.recordset[0];
+        if (record) {
+            return new Budget(
+                record.id,
+                record.userId,
+                record.amount,
+                record.month,
+                record.year,
+                record.registrationDate
+            );
+        }
+        return null;
+    } catch (error) {
+        console.log('Function services/getBudgetByUserIdAndMonth error:', error);
+        throw error;
+    }
+};
+
 module.exports = {
     getAllBudgets,
     getBudgetById,
     addBudget,
     updateBudget,
     deleteBudget,
-    getBudgetByUserId
+    getBudgetByUserId,
+    getBudgetByUserIdAndMonth
 };

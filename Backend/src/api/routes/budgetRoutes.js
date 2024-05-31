@@ -12,6 +12,8 @@ router.put('/budgets', budgetController.updateBudget);
 
 router.delete('/budgets/:id', budgetController.deleteBudget);
 
-router.post('/budgets', budgetController.addBudget); 
+router.post('/budgets', budgetController.addBudget);
+
+router.get('/budget-month/:appUserId/:month/:year', budgetController.getBudgetByUserIdAndMonth);
 
 module.exports = router;
