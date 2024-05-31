@@ -11,6 +11,16 @@ const getAllBudgets = async (req, res) => {
     }
 };
 
+const getBudgetByUserId = async (req, res) => {
+    try {
+        const allBudgets = await BudgetService.getBudgetByUserId(req.params.appUserId);
+        res.status(200).json(allBudgets);
+    } catch (error) {
+        console.error('Function controllers/getBudgetByUserId error:', error);
+        res.status(500).send('Error when getting Budgets for user from the database');
+    }
+};
+
 const addBudget = async (req, res) => {
     try {
         const Budget = new BudgetModel(
@@ -74,11 +84,11 @@ const deleteBudget = async (req, res) => {
     
 };
 
-
 module.exports = {
     getAllBudgets,
     addBudget,
     getBudgetById,
     updateBudget,
-    deleteBudget
+    deleteBudget,
+    getBudgetByUserId
 }
