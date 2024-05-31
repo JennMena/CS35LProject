@@ -6,7 +6,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     font-family: 'Fira Sans', sans-serif;
+  }
+
+  /* Add new style for the button */
+  /* Adjust the margin and position the button to the right */
+  .home-page-container .history-button {
+    margin-top: -1000px; /* Adjust the margin as needed */
+    margin-left: 1000px; /* Push the button to the right */
+    background-color: rgb(108, 7, 139); /* Set button background color */
+    color: white; /* Set button text color */
+    font-size: 20px; /* Set font size */
+    font-family: Arial, sans-serif; /* Set font family */
+    padding: 10px 20px; /* Add padding */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Add border radius */
+    cursor: pointer; /* Change cursor on hover */
+  }
+
+  /* Style on hover */
+  .home-page-container .history-button:hover {
+    background-color: rgb(78, 7, 117); /* Darken the background color on hover */
   }
   
   .home-page-container h1 {

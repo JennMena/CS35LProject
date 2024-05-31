@@ -29,13 +29,13 @@ const TransactionItem = ({ transaction }) => {
   }, [transaction.categoryId]);
 
   return (
-    <li>
-      <p>Type: {type}</p>
-      <p>Date: {new Date(transaction.transactionDate).toLocaleDateString()}</p>
-      <p>Category: {categoryName}</p>
-      <p>Amount: ${transaction.amount}</p>
-      <p>Description: {transaction.description}</p>
-      <p>Canceled: {transaction.canceled ? 'Yes' : 'No'}</p>
+    <li className={`transaction-item ${type === 'Income' ? 'income' : 'expense'}`}>
+      <p><strong>Type:</strong> {type}</p>
+      <p><strong>Date:</strong> {new Date(transaction.transactionDate).toLocaleDateString()}</p>
+      <p><strong>Category:</strong> {categoryName}</p>
+      <p><strong>Amount:</strong> ${transaction.amount}</p>
+      <p><strong>Description:</strong> {transaction.description}</p>
+      <p><strong>Canceled:</strong> {transaction.canceled ? 'Yes' : 'No'}</p>
     </li>
   );
 };

@@ -9,91 +9,97 @@ import HistoryPage from './components/historyPage/historyPage';
 import ProfilePage from './components/profilePage';
 import Modal from 'react-modal';
 
+
 function App() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+ const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
 
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
+ const openModal = () => {
+   setModalIsOpen(true);
+ };
 
-  return (
-    <Router>
-      <div className="App">
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-          <div className="container">
-            <Link className="navbar-brand" to={'/sign-in'}>
-              ExpenseTracker!
-            </Link>
-            <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link className="nav-link" to={'/sign-in'}>
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to={'/sign-up'}>
-                    Sign up
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to={'/home-page'}>
-                    Home Page
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to={'/history-page'}>
-                    History Page
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <button className="nav-link btn" onClick={openModal}>
-                    Profile
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-        <div className="auth-wrapper">
-          <div className="auth-inner">
-            <Routes>
-              <Route exact path="/" element={<Login />} />
-              <Route path="/sign-in" element={<Login />} />
-              <Route path="/sign-up" element={<SignUp />} />
-              <Route path="/home-page" element={<HomePage />} />
-              <Route path="/history-page" element={<HistoryPage />} />
-              <Route
-                path="/profile-page"
-                element={<ProfilePage modalIsOpen={modalIsOpen} closeModal={closeModal} />}
-              />
-            </Routes>
-          </div>
-        </div>
-      </div>
-      <Modal 
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Profile Information"
-        style={{
-          content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%,-50%)',
-          },
-        }}
-      >
-        <ProfilePage modalIsOpen={modalIsOpen} closeModal={closeModal} />
-      </Modal>
-    </Router>
-  );
+
+ const closeModal = () => {
+   setModalIsOpen(false);
+ };
+
+
+ return (
+   <Router>
+     <div className="App">
+       <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+         <div className="container">
+           <Link className="navbar-brand" to={'/sign-in'}>
+             ExpenseTracker!
+           </Link>
+           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+             <ul className="navbar-nav ml-auto">
+               <li className="nav-item">
+                 <Link className="nav-link" to={'/sign-in'}>
+                   Login
+                 </Link>
+               </li>
+               <li className="nav-item">
+                 <Link className="nav-link" to={'/sign-up'}>
+                   Sign up
+                 </Link>
+               </li>
+               <li className="nav-item">
+                 <Link className="nav-link" to={'/home-page'}>
+                   Home Page
+                 </Link>
+               </li>
+               <li className="nav-item">
+                 <Link className="nav-link" to={'/history-page'}>
+                   History Page
+                 </Link>
+               </li>
+               <li className="nav-item">
+                 <button className="nav-link btn" onClick={openModal}>
+                   Profile
+                 </button>
+               </li>
+             </ul>
+           </div>
+         </div>
+       </nav>
+       <div className="auth-wrapper">
+         <div className="auth-inner">
+           <Routes>
+             <Route exact path="/" element={<Login />} />
+             <Route path="/sign-in" element={<Login />} />
+             <Route path="/sign-up" element={<SignUp />} />
+             <Route path="/home-page" element={<HomePage />} />
+             <Route path="/history-page" element={<HistoryPage />} />
+             <Route
+               path="/profile-page"
+               element={<ProfilePage modalIsOpen={modalIsOpen} closeModal={closeModal} />}
+             />
+           </Routes>
+         </div>
+       </div>
+     </div>
+     <Modal
+       isOpen={modalIsOpen}
+       onRequestClose={closeModal}
+       contentLabel="Profile Information"
+       style={{
+         content: {
+           top: '50%',
+           left: '50%',
+           right: 'auto',
+           bottom: 'auto',
+           marginRight: '-50%',
+           transform: 'translate(-50%,-50%)',
+         },
+       }}
+     >
+       <ProfilePage modalIsOpen={modalIsOpen} closeModal={closeModal} />
+     </Modal>
+   </Router>
+ );
 }
 
+
 export default App;
+

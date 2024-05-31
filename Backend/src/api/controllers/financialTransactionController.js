@@ -63,6 +63,16 @@ const updateFinancialTransaction = async (req, res) => {
     }
 };
 
+const getTransactionsByUserId = async (req, res) => {
+    try {
+        const allFinancialTransactions = await FinancialTransactionService.getTransactionsByUserId(req.params.appUserId);
+        res.status(200).json(allFinancialTransactions);
+    } catch (error) {
+        console.error('Function controllers/getTransactionsByUserId error:', error);
+        res.status(500).send('Error when getting FinancialTransactions from the database');
+    }
+};
+
 const deleteFinancialTransaction = async (req, res) => {
     try {
         const allFinancialTransactions = await FinancialTransactionService.deleteFinancialTransaction(req.params.id);
@@ -75,12 +85,11 @@ const deleteFinancialTransaction = async (req, res) => {
 };
 
 
-
-
 module.exports = {
     getAllFinancialTransactions,
     addFinancialTransaction,
     getFinancialTransactionById,
     updateFinancialTransaction,
-    deleteFinancialTransaction
+    deleteFinancialTransaction,
+    getTransactionsByUserId
 }

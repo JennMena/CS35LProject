@@ -36,7 +36,7 @@ const getTransactionsByUserId = async (appUserId) => {
             record.canceled
         ));
     } catch (error) {
-        console.log('Function services/getCategoriesByUserId error:', error);
+        console.log('Function services/getTransactionsByUserId error:', error);
         throw error;
     }
 };
