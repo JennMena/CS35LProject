@@ -6,6 +6,7 @@ import Login from './components/login';
 import SignUp from './components/signup';
 import HomePage from './components/homePage'; // Import the HomePage component
 import HistoryPage from './components/historyPage/historyPage';
+import AboutPage from './components/about';
 
 function App() {
   return (
@@ -38,6 +39,11 @@ function App() {
                     History Page
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to={'/about-page'}>
+                    About Us
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -48,6 +54,7 @@ function App() {
               <Route exact path="/" element={<Login />} />
               <Route path="/sign-in" element={<Login />} />
               <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/about-page" element={<AboutPage />} />
               {/* Add a new Route for the HomePage component */}
               <Route path="/home-page" element={<HomePage />} />
               <Route path="/history-page" element={<HistoryPage />} />
