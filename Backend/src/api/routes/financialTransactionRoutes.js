@@ -1,16 +1,10 @@
 const express = require('express');
 const router =  express.Router();
 const FinancialTransactionController = require('../controllers/financialTransactionController.js');
-const isAuthenticated = require('../controllers/authMiddleware');
 
 router.post('/financialtransaction', FinancialTransactionController.addFinancialTransaction); 
-
-router.get('/financialtransaction-user/:appUserId', FinancialTransactionController.getTransactionsByUserId); 
-
-router.get('/financialtransaction/:id', FinancialTransactionController.getFinancialTransactionById);
-
+router.get('/financialtransaction', FinancialTransactionController.getAllFinancialTransactions); 
 router.put('/financialtransaction', FinancialTransactionController.updateFinancialTransaction);
-
-router.delete('/financialtransaction/:id', FinancialTransactionController.deleteFinancialTransaction);
-
+router.delete('/users/:id', FinancialTransactionController.deleteFinancialTransaction);
+router.post('/budgets', FinancialTransactionController.addFinancialTransaction); 
 module.exports = router;
