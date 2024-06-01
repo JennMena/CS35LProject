@@ -119,8 +119,7 @@ const updateUser = async (appUser) => {
             .input('gender', sql.VarChar(1), appUser.gender)
             .input('enabled', sql.Bit, appUser.enabled)
             .query('UPDATE AppUser SET firstName = @firstName, lastName = @lastName, username = @username, password = @password, address = @address, locationCityId = @locationCityId, email = @email, phoneNumber = @phoneNumber, birthDate = @birthDate, gender = @gender, enabled = @enabled WHERE id = @id');
-        return "Updated correctly";
-        //return getUserById(id);
+        return getUserById(id);
     } catch (error) {
         console.log('Function services/updateUser error:', error);
         throw error;

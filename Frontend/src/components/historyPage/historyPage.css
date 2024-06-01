@@ -84,6 +84,8 @@
   /* light red */
 }
 
+
+
 /* Media Queries for responsiveness */
 @media (max-width: 1200px) {
   .transaction-list ul {

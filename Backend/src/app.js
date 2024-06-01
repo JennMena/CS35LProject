@@ -22,6 +22,8 @@ const budgetRoutes = require('./api/routes/budgetRoutes')
 const ftfRoutes = require('./api/routes/ftfRoutes')
 const financialTransactionRoutes = require('./api/routes/financialTransactionRoutes')
 
+const statements = require('./api/routes/generateStatement');
+
 
 const app = express();
 const port = process.env.port || 3001;
@@ -53,6 +55,8 @@ app.use('/', appUserAppRoleRoutes);
 app.use('/', budgetRoutes);
 app.use('/', financialTransactionRoutes);
 app.use('/', ftfRoutes);
+
+app.use('/', statements);
 
 
 const swaggerOptions = {

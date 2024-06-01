@@ -50,12 +50,12 @@ const updateFinancialTransaction = async (req, res) => {
             req.body.appUserId,
             req.body.categoryId,
             req.body.amount,
-            req.body.transactionDate,
+            new Date(req.body.transactionDate),
             req.body.description,
             req.body.canceled
         );
         const fixedFinancialTransaction = await FinancialTransactionService.updateFinancialTransaction(financialTransaction);
-        //Update to success code after inserting
+        
         res.status(200).json(fixedFinancialTransaction);
     } catch (error) {
         console.error('Function controllers/updateFinancialTransaction error:', error);

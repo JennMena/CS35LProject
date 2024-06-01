@@ -104,8 +104,10 @@ const updateFinancialTransaction = async (FinancialTransaction) => {
             .input('categoryId', sql.BigInt, FinancialTransaction.categoryId)
             .input('amount', sql.Money, FinancialTransaction.amount)
             .input('description', sql.VarChar, FinancialTransaction.description)
+            .input('date', sql.DateTime, FinancialTransaction.transactionDate)
             .input('canceled', sql.Bit, FinancialTransaction.canceled)
-            .query('UPDATE FinancialTransaction SET categoryId = @categoryId, amount = @amount, description = @description, canceled = @canceled WHERE id = @id');
+            .query('UPDATE FinancialTransaction SET categoryId = @categoryId, amount = @amount, description = @description, canceled = @canceled, transactionDate = @date WHERE id = @id');
+        return getFinancialTransactionById(FinancialTransaction.id);
     } catch (error) {
         console.log('Function services/updateFinancialTransaction error:', error);
         throw error;
