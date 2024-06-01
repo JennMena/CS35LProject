@@ -95,7 +95,49 @@ const addFinancialTransaction = async (financialTransaction) => {
         throw error;
     }
 };
+const getTransWithUserIdAndCategory = async (appUserId, categoryName) => {
+    try {
+        const pool = await getConnection();
 
+        // Log the parameters for debugging
+        console.log('appUserId:', appUserId);
+        console.log('categoryName:', categoryName);
+
+        const result = await pool.request()
+            .input('appUserId', sql.BigInt, appUserId)
+            .input('categoryName', sql.VarChar(100), categoryName)
+            .query(`
+                SELECT ft.*
+                FROM FinancialTransaction ft
+                JOIN Category c ON ft.categoryId = c.id
+                WHERE ft.appUserId = @appUserId
+                  AND c.appUserId = @appUserId
+                  AND c.name = @categoryName
+                  AND ft.canceled = 0;
+            `); // excluding canceled transactions
+
+        // Log the query result for debugging
+        console.log('Query result:', result.recordset);
+
+        if (result.recordset.length === 0) {
+            console.log('No transactions found for entered category.');
+            return [];
+        }
+
+        return result.recordset.map(record => new FinancialTransaction(
+            record.id,
+            record.appUserId,
+            record.categoryId,
+            record.amount,
+            record.transactionDate,
+            record.description,
+            record.canceled
+        ));
+    } catch (error) {
+        console.log('Function services/getTransWithUserIdAndCategory error:', error);
+        throw error;
+    }
+};
 const updateFinancialTransaction = async (FinancialTransaction) => {
     try {
         const pool = await getConnection();
@@ -223,5 +265,6 @@ module.exports = {
     getTransactionsByUserId,
     getAllTransactionsOfMonth,
     getTransWithUserIdAndMonth,
-    getSumOfTransactionsByTypeAndMonth
+    getSumOfTransactionsByTypeAndMonth,
+    getTransWithUserIdAndCategory
 };

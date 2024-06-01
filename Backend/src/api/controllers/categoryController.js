@@ -40,6 +40,16 @@ const getCategoryById = async (req, res) => {
     }
 };
 
+const getCategoriesByName = async (req, res) => {
+    try {
+        const category = await categoryService.getCategoriesByName(req.params.name);
+        res.status(200).json(category);
+    } catch (error) {
+        console.error('Function controllers/getCategoryByName error:', error);
+        res.status(500).send('Error when getting category from the database');
+    }
+};
+
 const getAllCategories = async (req, res) => {
     try {
         const allCategories = await categoryService.getAllCategories();
@@ -85,5 +95,6 @@ module.exports = {
     getCategoryById,
     addCategory,
     updateCategory,
-    deleteCategoryById
+    deleteCategoryById,
+    getCategoriesByName
 };

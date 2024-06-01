@@ -220,6 +220,7 @@ router.get('/category', categoryController.getAllCategories);
  *               example: "Error when retrieving category from the database"
  */
 router.get('/category/:id', categoryController.getCategoryById);
+router.get('/category/:name/:appUserId', categoryController.getCategoriesByName);
 
 /**
  * @swagger

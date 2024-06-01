@@ -6,7 +6,7 @@ router.post('/financialtransaction', FinancialTransactionController.addFinancial
 router.get('/financialtransaction', FinancialTransactionController.getAllFinancialTransactions);
 router.get('/financialtransaction-user/:appUserId', FinancialTransactionController.getTransactionsByUserId);  
 router.put('/financialtransaction', FinancialTransactionController.updateFinancialTransaction);
-
+router.get('/financialtransaction/:appUserId/category/:categoryName', FinancialTransactionController.getTransWithUserIdAndCategory);  
 //Gets all the financial trasaction of one user
 //It doesn't cancelled transactions
 router.delete('/financialtransaction/:id', FinancialTransactionController.deleteFinancialTransaction);
