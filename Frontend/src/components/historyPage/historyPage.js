@@ -80,7 +80,7 @@ const HistoryPage = () => {
   return (
     <div className="history-page-container">
       <h1>History of Transactions</h1>
-      <h5>Hey {username}!👋 Take a look at all your transactions</h5>
+      <h5>Hey {username}!👋 Take a look at all your transactions.</h5>
       {userId ? (
         <>
           <div className="button-container">

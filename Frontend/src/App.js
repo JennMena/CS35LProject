@@ -7,6 +7,7 @@ import SignUp from './components/signup';
 import HomePage from './components/homePage';
 import HistoryPage from './components/historyPage/historyPage';
 import ProfilePage from './components/profilePage';
+import CategoriesPage from './components/categoriesPage/categoriesPage';
 import Modal from 'react-modal';
 
 
@@ -55,6 +56,11 @@ function App() {
                  </Link>
                </li>
                <li className="nav-item">
+                 <Link className="nav-link" to={'/category-page'}>
+                   My Categories
+                 </Link>
+               </li>
+               <li className="nav-item">
                  <button className="nav-link btn" onClick={openModal}>
                    Profile
                  </button>
@@ -71,6 +77,7 @@ function App() {
              <Route path="/sign-up" element={<SignUp />} />
              <Route path="/home-page" element={<HomePage />} />
              <Route path="/history-page" element={<HistoryPage />} />
+             <Route path="/category-page" element={<CategoriesPage />} />
              <Route
                path="/profile-page"
                element={<ProfilePage modalIsOpen={modalIsOpen} closeModal={closeModal} />}
