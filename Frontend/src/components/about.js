@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Shivani from '../images/Shivani.jpg';
 
 const About = () => {
@@ -14,6 +13,7 @@ const About = () => {
     backgroundColor: '#f7f7f7',
     padding: '20px',
     fontFamily: '"Arial", sans-serif'
+    
   };
 
   return (

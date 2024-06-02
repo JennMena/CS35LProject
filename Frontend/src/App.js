@@ -9,7 +9,7 @@ import HistoryPage from './components/historyPage/historyPage';
 import ProfilePage from './components/profilePage';
 import CategoriesPage from './components/categoriesPage/categoriesPage';
 import Modal from 'react-modal';
-
+import About from './components/about';
 
 function App() {
  const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -61,6 +61,11 @@ function App() {
                  </Link>
                </li>
                <li className="nav-item">
+                 <Link className="nav-link" to={'/about-page'}>
+                   About
+                 </Link>
+               </li>
+               <li className="nav-item">
                  <button className="nav-link btn" onClick={openModal}>
                    Profile
                  </button>
@@ -78,6 +83,7 @@ function App() {
              <Route path="/home-page" element={<HomePage />} />
              <Route path="/history-page" element={<HistoryPage />} />
              <Route path="/category-page" element={<CategoriesPage />} />
+             <Route path="/about-page" element={<About />} />
              <Route
                path="/profile-page"
                element={<ProfilePage modalIsOpen={modalIsOpen} closeModal={closeModal} />}
