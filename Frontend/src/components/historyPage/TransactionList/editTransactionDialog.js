@@ -9,7 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 const EditTransactionDialog = ({ open, onClose, categories, formData, onChange, onSave }) => {
   
-  console.log('EditTransactionDialog formData:', formData);
+  //console.log('EditTransactionDialog formData:', formData);
 
   // Ensure date is formatted as YYYY-MM-DD for the date input
   const formattedDate = formData.transactionDate ? new Date(formData.transactionDate).toISOString().split('T')[0] : '';
