@@ -1,4 +1,8 @@
 /* historyPage.css */
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
+* {
+  font-family: 'Fira Sans', sans-serif;
+}
 
 .history-page-container {
   background: linear-gradient(45deg, #ffffff, #add8e6);
@@ -6,13 +10,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Fira Sans', sans-serif;
 }
 
 .history-page-container h1 {
   font-size: 3em;
   color: #333;
-  margin-top: 200px;
+  margin-top: 20rem;
 }
 
 .button-container {
@@ -93,6 +96,38 @@
 .expense {
   background-color: #ffe6e6;
   /* light red */
+}
+
+/*For the edit transaction dialog*/
+
+.dialog-title {
+  background: linear-gradient(45deg, #add8e6, #add8ff);
+  color: black;
+  padding: 16px; /* Padding */
+  margin-bottom: 50px;
+  text-align: center; /* Center align text */
+  font-weight: 500 !important; /* Increased font weight specificity */
+  font-family: 'Fira Sans', sans-serif !important;
+}
+
+.dialog-content {
+  padding: 20px; /* Add padding */
+  margin-top: 30px;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.dialog-input {
+  margin-bottom: 16px; /* Add space between inputs */
+}
+
+.dialog-actions {
+  padding: 16px; /* Add padding */
+  display: flex; /* Flex display */
+  justify-content: space-between; /* Space between buttons */
+}
+
+.dialog-button {
+  min-width: 100px; /* Minimum width for buttons */ 
 }
 
 
