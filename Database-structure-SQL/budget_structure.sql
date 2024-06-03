@@ -1,50 +1,23 @@
-drop database BUDGET
+--drop database BUDGET
 create database BUDGET
 go
 
 USE BUDGET
 go
 
-create table LocationState( -- Province
-	id smallint IDENTITY PRIMARY KEY,
-    name varchar(100) NOT NULL
-)
-insert into LocationState(name) values ('California')
-
-create table LocationCity(
-	id int IDENTITY PRIMARY KEY,
-    locationStateId smallint NOT NULL,
-    name varchar(100),
-    CONSTRAINT fk_LocationCity_provinceId FOREIGN KEY (locationStateId) REFERENCES LocationState(id)
-)
-insert into LocationCity(locationStateId, name) values 
-(1, 'Los �ngeles'),
-(1, 'San Diego'),
-(1, 'San Jos�'),
-(1, 'San Francisco'),
-(1, 'Long Beach'),
-(1, 'Fresno'),
-(1, 'Sacramento'),
-(1, 'Oakland'),
-(1, 'Santa Ana'),
-(1, 'Anaheim')
-
-
 CREATE TABLE AppUser(
 	id bigint IDENTITY PRIMARY KEY,
     firstName varchar(100) NOT NULL,
     lastName varchar(100) NOT NULL,
     username varchar(50) NOT NULL UNIQUE,
-    password varchar(500) NOT NULL, -- In case they want to store encrypted
+    password varchar(500) NOT NULL, -- In case we want to store encrypted
     address varchar(200),
-    locationCityId int NOT NULL,
     email varchar(200),
     phoneNumber varchar(50),
     birthDate date,
-    gender varchar(1), -- Just the initial, to avoid duplicating values in the database
+    gender varchar(1), -- Just the initial ('M' or 'F'), to avoid duplicating values in the database
     registrationDate datetime DEFAULT(GETDATE()),
     enabled bit DEFAULT(1),
-	CONSTRAINT fk_AppUser_locationCityId FOREIGN KEY (locationCityId) REFERENCES LocationCity(id)
 )
 
 CREATE TABLE AppRole(

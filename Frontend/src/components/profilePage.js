@@ -28,7 +28,7 @@ const ProfilePage = ({ modalIsOpen, closeModal }) => {
           localStorage.setItem('lastName', response.data.lastName);
           localStorage.setItem('registrationDate', response.data.registrationDate);
           localStorage.setItem('username', response.data.username);
-          setUserData(response.data); // Set user data after successful response
+          setUserData(response.data); 
         } 
       } catch (error) {
         console.error('Error verifying user:', error);
@@ -42,6 +42,19 @@ const ProfilePage = ({ modalIsOpen, closeModal }) => {
     }
   }, [userId, navigate]);
 
+  const date = new Date(registrationDate);
+  const year = date.getUTCFullYear();
+  const month = date.getUTCMonth();
+  const day = date.getUTCDate();
+
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const formattedDateMDY = `${monthNames[month]} ${day}, ${year}`;
+
+
   return (
     <div>
       {userData ? (
@@ -51,7 +64,7 @@ const ProfilePage = ({ modalIsOpen, closeModal }) => {
           <p>User ID Number: {userData.id}</p>
           <p>First Name: {userData.firstName}</p>
           <p>Last Name: {userData.lastName}</p>
-          <p>User since: {userData.registrationDate}</p>
+          <p>User since: {formattedDateMDY}</p>
           <button onClick={closeModal}>Close</button>
         </div>
       ) : (

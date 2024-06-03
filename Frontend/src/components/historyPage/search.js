@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './historyPage.css'; 
+import './search.css'; 
 
 const Search = ({ userId, setTransactions }) => {
   const [categoryName, setCategoryName] = useState('');

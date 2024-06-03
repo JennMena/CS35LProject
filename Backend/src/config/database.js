@@ -5,7 +5,6 @@ const config = {
     user: 'sa',
     password: '3950Spork!',
     server: 'localhost',
-
     database: 'BUDGET',
     options: {
         encrypt: true,

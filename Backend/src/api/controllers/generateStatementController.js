@@ -1,64 +1,8 @@
-const PDFDocument = require('pdfkit');
-const fs = require('fs');
 const path = require('path');
 const ExcelJS = require('exceljs');
 const nodemailer = require('nodemailer');
 const FinancialTransactionService = require('../../services/FinancialTransactionService');
-
-const generateStatementPDF = async (req, res) => {
-  const { userId } = req.params;
-
-  // Fetch user's transactions from the database
-  const transactions = await FinancialTransactionService.getTransactionsByUserId(userId);
-
-  // Create a new PDF document
-  const doc = new PDFDocument();
-  const filePath = path.join(__dirname, `statement_${userId}.pdf`);
-  const writeStream = fs.createWriteStream(filePath);
-  doc.pipe(writeStream);
-
-  // Add title
-  doc.fontSize(25).text('Statement', { align: 'center' });
-  doc.moveDown();
-
-  // Add table headers
-  const tableTop = 100;
-  const itemCodeX = 50;
-  const descriptionX = 150;
-  const amountX = 250;
-  const categoryX = 350;
-  const dateX = 450;
-
-  doc.fontSize(10).text('Date', dateX, tableTop);
-  doc.fontSize(10).text('Type', itemCodeX, tableTop);
-  doc.fontSize(10).text('Amount', amountX, tableTop);
-  doc.fontSize(10).text('Category', categoryX, tableTop);
-  doc.fontSize(10).text('Description', descriptionX, tableTop);
-
-  // Draw table rows
-  const rowHeight = 20;
-  let y = tableTop + rowHeight;
-
-  transactions.forEach(transaction => {
-    doc.fontSize(10).text(new Date(transaction.transactionDate).toISOString().split('T')[0], dateX, y);
-    doc.fontSize(10).text(transaction.type, itemCodeX, y);
-    doc.fontSize(10).text(transaction.amount, amountX, y);
-    doc.fontSize(10).text(transaction.category, categoryX, y);
-    doc.fontSize(10).text(transaction.description, descriptionX, y);
-    y += rowHeight;
-  });
-
-  doc.end();
-
-  // Wait for the file to be fully written before sending the response
-  writeStream.on('finish', () => {
-    res.status(200).json({ filePath });
-  });
-
-  writeStream.on('error', (err) => {
-    res.status(500).json({ error: 'Error generating PDF' });
-  });
-};
+const categoryService = require('../../services/categoryService.js');
 
 const generateStatementExcel = async (req, res) => {
   const { userId } = req.params;
@@ -77,17 +21,46 @@ const generateStatementExcel = async (req, res) => {
     { header: 'Amount', key: 'amount', width: 10 },
     { header: 'Category', key: 'category', width: 15 },
     { header: 'Description', key: 'description', width: 30 },
+    { header: 'Canceled', key: 'canceled', width: 10 },
   ];
 
-  // Add rows
-  transactions.forEach(transaction => {
-    worksheet.addRow({
-      date: new Date(transaction.transactionDate).toISOString().split('T')[0],
-      type: transaction.type,
-      amount: transaction.amount,
-      category: transaction.category,
-      description: transaction.description,
-    });
+  // Get categories of user and save them in a data structure
+  let categories = await categoryService.getCategoriesByUserId(userId);
+  let listStructs = categories.map(cat => ({
+    categoryId: cat.id,
+    categoryname: cat.name,
+    type: cat.type,
+  }));
+
+  // Prepare table rows
+  const tableRows = transactions.map(transaction => [
+    new Date(transaction.transactionDate).toISOString().split('T')[0],
+    transaction.type === "E" ? "Expense" : "Income",
+    transaction.amount,
+    listStructs.find(c => c.categoryId === transaction.categoryId).categoryname,
+    transaction.description,
+    transaction.canceled === true ? "Yes" : "No",
+  ]);
+
+  // Apply table formatting
+  worksheet.addTable({
+    name: 'TransactionTable',
+    ref: 'A1',
+    headerRow: true,
+    totalsRow: false,
+    style: {
+      theme: 'TableStyleMedium9', // Using a light table style
+      showRowStripes: true, // Disable row stripes
+    },
+    columns: [
+      { name: 'Date', key: 'date' },
+      { name: 'Type', key: 'type' },
+      { name: 'Amount', key: 'amount' },
+      { name: 'Category', key: 'category' },
+      { name: 'Description', key: 'description' },
+      { name: 'Canceled', key: 'canceled' },
+    ],
+    rows: tableRows,
   });
 
   const filePath = path.join(__dirname, `statement_${userId}.xlsx`);
@@ -97,11 +70,10 @@ const generateStatementExcel = async (req, res) => {
   res.status(200).json({ filePath });
 };
 
-
 const sendStatementEmail = async (req, res) => {
-  const { userId, email, format } = req.body;
+  const { userId, email, name } = req.body;
 
-  // Generate the statement file based on the format (PDF or Excel)
+  // Generate the statement file
   let filePath;
   const mockRes = {
     status: (code) => ({
@@ -109,11 +81,7 @@ const sendStatementEmail = async (req, res) => {
     })
   };
 
-  if (format === 'pdf') {
-    await generateStatementPDF({ params: { userId } }, mockRes);
-  } else {
-    await generateStatementExcel({ params: { userId } }, mockRes);
-  }
+  await generateStatementExcel({ params: { userId } }, mockRes);
 
   // Ensure the file path was generated correctly
   if (!filePath) {
@@ -125,25 +93,19 @@ const sendStatementEmail = async (req, res) => {
     service: 'Gmail',
     auth: {
       user: 'cs35lproject.fruit17@gmail.com',
-      pass: 'oqhi bsdw tnrp rbpd', // Use the App Password here
+      pass: 'oqhi bsdw tnrp rbpd', // Use the App Password
     },
   });
-
-  let extension = "";
-  if (format === "excel")
-    extension = "xlsx"
-  else
-    extension = "pdf"
 
   // Setup email data
   const mailOptions = {
     from: 'cs35lproject.fruit17@gmail.com',
     to: email,
     subject: 'Your Statement from Budget Buddy',
-    text: 'Please find your statement attached.',
+    text: `Hi ${name}! Please find your statement attached.`,
     attachments: [
       {
-        filename: `statement_${userId}.${extension}`,
+        filename: `statement_${name}.xlsx`,
         path: filePath,
       },
     ],
@@ -159,7 +121,6 @@ const sendStatementEmail = async (req, res) => {
 };
 
 module.exports = {
-  generateStatementPDF,
   generateStatementExcel,
   sendStatementEmail
 };

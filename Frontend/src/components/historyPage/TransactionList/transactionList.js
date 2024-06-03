@@ -116,43 +116,31 @@ const TransactionList = ({ userId }) => {
   
   const handleSaveTransaction = async (formData) => {
     try {
-      const formattedDate = formatDateToSQL(new Date(formData.transactionDate + 'T00:00:00')); // Ensure time part is set to midnight
-      const updatedFormData = { ...formData, transactionDate: formattedDate };
-  
-      console.log('Form Data before update:', updatedFormData);
-      const response = await axios.put(`${backendAPI}financialtransaction`, updatedFormData);
+      console.log('Form Data before update:', formData);
+      const response = await axios.put(`${backendAPI}financialtransaction`, formData);
       const updatedTransaction = response.data;
   
+      // Fetch updated category details
       console.log('Updated Transaction:', updatedTransaction);
+      const categoryResponse = await axios.get(`${backendAPI}category/${updatedTransaction.categoryId}`, { withCredentials: true });
+      const updatedCategory = categoryResponse.data;
   
-      // Ensure the updated transaction date is in the correct format for display
-      updatedTransaction.transactionDate = new Date(updatedTransaction.transactionDate).toISOString().split('T')[0];
+      console.log('Updated Category:', updatedCategory);
   
-      console.log('Updated Transaction after formatting:', updatedTransaction);
+      setCategories({
+        ...categories,
+        [updatedTransaction.categoryId]: updatedCategory
+      });
   
-      if (updatedTransaction.categoryId) {
-        const categoryResponse = await axios.get(`${backendAPI}category/${updatedTransaction.categoryId}`, { withCredentials: true });
-        const updatedCategory = categoryResponse.data;
-  
-        console.log('Updated Category:', updatedCategory);
-  
-        setCategories({
-          ...categories,
-          [updatedTransaction.categoryId]: updatedCategory
-        });
-  
-        setTransactions(transactions.map(transaction =>
-          transaction.id === updatedTransaction.id ? updatedTransaction : transaction
-        ));
-      } else {
-        console.error('Updated transaction does not include a valid categoryId:', updatedTransaction);
-      }
-  
+      setTransactions(transactions.map(transaction =>
+        transaction.id === updatedTransaction.id ? updatedTransaction : transaction
+      ));
       handleCloseEditDialog();
     } catch (error) {
       console.error('Error saving transaction:', error);
     }
   };
+  
   
   
   const handleChange = (event) => {
