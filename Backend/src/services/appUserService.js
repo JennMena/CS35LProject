@@ -16,7 +16,6 @@ const getAllUsers = async () => {
             record.username,
             record.password,
             record.address,
-            record.locationCityId,
             record.email,
             record.phoneNumber,
             record.birthDate,
@@ -46,7 +45,6 @@ const getUserById = async (id) => {
                 record.username,
                 record.password,
                 record.address,
-                record.locationCityId,
                 record.email,
                 record.phoneNumber,
                 record.birthDate,
@@ -63,7 +61,6 @@ const getUserById = async (id) => {
 
 const addUser = async (appUser) => {
     try {
-        //console.log({appUser});
         const pool = await getConnection();
         const result = await pool.request()
             .input('firstName', sql.VarChar(100), appUser.firstName)
@@ -71,23 +68,22 @@ const addUser = async (appUser) => {
             .input('username', sql.VarChar(50), appUser.username)
             .input('password', sql.VarChar(500), appUser.password)
             .input('address', sql.VarChar(200), appUser.address)
-            .input('locationCityId', sql.Int, appUser.locationCityId)
             .input('email', sql.VarChar(200), appUser.email)
             .input('phoneNumber', sql.VarChar(50), appUser.phoneNumber)
             .input('birthDate', sql.Date, appUser.birthDate)
             .input('gender', sql.VarChar(1), appUser.gender)
             .input('enabled', sql.Bit, appUser.enabled)
             //Query to insert into database
-            .query(`INSERT INTO AppUser (firstName, lastName, username, password, address, locationCityId, email, phoneNumber, birthDate, gender, enabled) VALUES (@firstName, @lastName, @username, @password, @address, @locationCityId, @email, @phoneNumber, @birthDate, @gender, @enabled);
+            .query(`INSERT INTO AppUser (firstName, lastName, username, password, address, email, phoneNumber, birthDate, gender, enabled) VALUES (@firstName, @lastName, @username, @password, @address, @email, @phoneNumber, @birthDate, @gender, @enabled);
             SELECT SCOPE_IDENTITY() as id;`); //Scope identity returns id of the new user added
-        return new AppUser(
+
+        new AppUser(
             result.recordset[0].id,
             appUser.firstName,
             appUser.lastName,
             appUser.username,
             appUser.password,
             appUser.address,
-            appUser.locationCityId,
             appUser.email,
             appUser.phoneNumber,
             appUser.birthDate,
@@ -112,13 +108,12 @@ const updateUser = async (appUser) => {
             .input('username', sql.VarChar(50), appUser.username)
             .input('password', sql.VarChar(500), appUser.password)
             .input('address', sql.VarChar(200), appUser.address)
-            .input('locationCityId', sql.Int, appUser.locationCityId)
             .input('email', sql.VarChar(200), appUser.email)
             .input('phoneNumber', sql.VarChar(50), appUser.phoneNumber)
             .input('birthDate', sql.Date, appUser.birthDate)
             .input('gender', sql.VarChar(1), appUser.gender)
             .input('enabled', sql.Bit, appUser.enabled)
-            .query('UPDATE AppUser SET firstName = @firstName, lastName = @lastName, username = @username, password = @password, address = @address, locationCityId = @locationCityId, email = @email, phoneNumber = @phoneNumber, birthDate = @birthDate, gender = @gender, enabled = @enabled WHERE id = @id');
+            .query('UPDATE AppUser SET firstName = @firstName, lastName = @lastName, username = @username, password = @password, address = @address, email = @email, phoneNumber = @phoneNumber, birthDate = @birthDate, gender = @gender, enabled = @enabled WHERE id = @id');
         return getUserById(id);
     } catch (error) {
         console.log('Function services/updateUser error:', error);
@@ -146,7 +141,7 @@ const login = async (req, username, password) => {
             .input('username', sql.VarChar(50), username)
             .input('pass', sql.VarChar(500), password)
             .query(`SELECT id, username FROM AppUser WHERE username=@username AND password=@pass`);
-        
+
         if (result.recordset.length > 0) {
             const user = result.recordset[0];
             req.session.user = {

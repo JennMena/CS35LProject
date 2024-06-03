@@ -29,34 +29,23 @@ const SignUpForm = () => {
     e.preventDefault(); // Prevent the default form submission behavior
 
     // Prepare the data to match the backend API requirements
-    const requestData = {
-      username: formData.email,
-      password: formData.password,
-    };
-
-    // Prepare the data to match the backend API requirements
     const requestDataForUser = {
       firstName: formData.firstName,
       lastName: formData.lastName,
       username: formData.email,
       password: formData.password,
-      locationCityId: 1,
-      address: '',
-      locationCityId: 116, //Change this to 1 for you, mine is 116 because 1 doesn't exist in my DB
-      email: formData.email,
-      phoneNumber: '',
-      gender: '',
-      enabled: true
+      email: formData.email
     };
 
     //console.log('Form submitted:', requestData); // Debug log
+    //console.log('Form submitted:', requestDataForUser); // Debug log
 
       // Make the HTTP request
     // withCredentials: true -> ensures that axios sends cookies (including session cookies)
     // with the requests -> maintaining the session between the client and server.
     axios.post(backendAPI + 'users', requestDataForUser, { withCredentials: true })
       .then((response) => {
-        if (response.data) {
+        if (response.data != "Error when adding user from the database") {
           console.log('Success:', response.data);
           navigate('/sign-in');
         } else {
