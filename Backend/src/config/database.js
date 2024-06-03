@@ -4,7 +4,7 @@ const constants = require('../../../constants')
 const config = {
 
     user: 'sa',
-    password: '3950Spork!',
+    password: 'YourStrong@Password',
     server: 'localhost',
     database: 'BUDGET',
     options: {

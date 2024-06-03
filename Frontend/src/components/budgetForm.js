@@ -19,7 +19,12 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
 
   const handleBudgetSubmit = (e) => {
     e.preventDefault();
-    onBudgetSubmit(parseFloat(budgetAmount));
+    const budget = parseFloat(budgetAmount).toFixed(2);
+    if (budget < 0) {
+      setErrorMessage('Budget amount cannot be negative.');
+      return;
+    }
+    onBudgetSubmit(parseFloat(budget));
 
     // Prepare the data to match the backend API requirements
     const currentDate = new Date();
@@ -28,7 +33,7 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
 
     const requestData = {
       userId: userId, // Assuming userId is defined somewhere in the parent component
-      amount: parseFloat(budgetAmount),
+      amount: parseFloat(budget),
       month: currentMonth,
       year: currentYear
     };
@@ -95,6 +100,10 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
     e.preventDefault();
     const amount = parseFloat(expenseAmount);
     const reason = expenseReason.trim(); // Trim any leading/trailing whitespace
+    if (amount < 0) {
+      setErrorMessage('Expense or income amount cannot be negative.');
+      return;
+    }
     if (amount && reason) {
       onExpenseSubmit(amount, reason);
       setExpenseAmount('');
