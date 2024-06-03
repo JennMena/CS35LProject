@@ -39,9 +39,6 @@ const appUserController = require('../controllers/appUserController.js');
  *                   address:
  *                     type: string
  *                     example: "330 DeNeve Dr"
- *                   locationCityId:
- *                     type: integer
- *                     example: 116
  *                   email:
  *                     type: string
  *                     example: "u1@test.com"
@@ -111,9 +108,6 @@ router.get('/users', appUserController.getAllUsers);
  *                 address:
  *                   type: string
  *                   example: "330 DeNeve Dr"
- *                 locationCityId:
- *                   type: integer
- *                   example: 116
  *                 email:
  *                   type: string
  *                   example: "u1@test.com"
@@ -175,9 +169,6 @@ router.get('/users/:id', appUserController.getUserById);
  *               address:
  *                 type: string
  *                 example: 123 Main St
- *               locationCityId:
- *                 type: integer
- *                 example: 1
  *               email:
  *                 type: string
  *                 example: john.doe@example.com
@@ -247,9 +238,6 @@ router.post('/users', appUserController.addUser);
  *               address:
  *                 type: string
  *                 example: 123 Main St
- *               locationCityId:
- *                 type: integer
- *                 example: 1
  *               email:
  *                 type: string
  *                 example: john.doe@example.com
