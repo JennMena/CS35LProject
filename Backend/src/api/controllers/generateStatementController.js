@@ -32,10 +32,14 @@ const generateStatementExcel = async (req, res) => {
     type: cat.type,
   }));
 
+  //console.log(categories);
+  //console.log(listStructs);
+  //console.log(transactions);
+
   // Prepare table rows
   const tableRows = transactions.map(transaction => [
     new Date(transaction.transactionDate).toISOString().split('T')[0],
-    transaction.type === "E" ? "Expense" : "Income",
+    listStructs.find(c => c.categoryId === transaction.categoryId).type === 'E' ? "Expense" : "Income",
     transaction.amount,
     listStructs.find(c => c.categoryId === transaction.categoryId).categoryname,
     transaction.description,

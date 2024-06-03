@@ -101,7 +101,7 @@ const updateBudget = async (Budget, id) => {
             .input('amount', sql.Money, Budget.amount)
             .input('month', sql.TinyInt, Budget.month)
             .input('year', sql.SmallInt, Budget.year)
-            .query('UPDATE Budget SET userId = @userId, amount = @amount, month = @month, year = @year');
+            .query('UPDATE Budget SET userId = @userId, amount = @amount, month = @month, year = @year WHERE id=@id');
         //return getUserById(id);
     } catch (error) {
         console.log('Function services/updateBudget error:', error);
