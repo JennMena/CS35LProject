@@ -24,6 +24,8 @@ const financialTransactionRoutes = require('./api/routes/financialTransactionRou
 
 const statements = require('./api/routes/generateStatement');
 
+const constants = require('../../constants')
+
 
 const app = express();
 const port = process.env.port || 3001;
@@ -41,7 +43,7 @@ app.use(bodyParser.json());
 
 // Enable CORS with credentials
 app.use(cors({
-  origin: 'http://localhost:3000', // Update to your frontend's URL
+  origin: constants.frontend, // Update to your frontend's URL
   credentials: true
 }));
 
