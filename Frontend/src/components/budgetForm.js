@@ -26,11 +26,7 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
 
   const handleReasonChange = (e) => {
     setExpenseReason(e.target.value);
-  };
-
-  const handleBudgetSubmit = (e) => {
-    e.preventDefault();
-    onBudgetSubmit(parseFloat(budgetAmount));*/
+  };*/
 
   const handleBudgetChange = (e) => {
     setBudgetAmount(e.target.value);
@@ -52,17 +48,28 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
       year: currentYear
     };
 
-    axios.get(backendAPI + 'budgets/1', requestData, { withCredentials: true })
+    /*router.get('/budgets', budgetController.getAllBudgets);
+
+    router.get('/budget-user/:appUserId', budgetController.getBudgetByUserId);
+
+    router.get('/budgets/:id', budgetController.getBudgetById);
+
+    router.put('/budgets', budgetController.updateBudget);
+
+    router.delete('/budgets/:id', budgetController.deleteBudget);
+
+    router.post('/budgets', budgetController.addBudget);
+
+    router.get('/budget-month/:appUserId/:month/:year', budgetController.getBudgetByUserIdAndMonth);*/
+
+    axios.get(backendAPI + 'budget-month' + userId + '/' + currentMonth + '/' + currentYear, requestData, { withCredentials: true })
       .then((response) => {
         if (response.data){
           axios.put(backendAPI + 'budgets', requestData, { withCredentials: true })
           .then((response) => {
             if (response.data) {
               console.log('Success:', response.data);
-              // Store the user ID in local storage
-              // Redirect to home page on successful login
             } else {
-              // Handle login failure
               setErrorMessage('Budget did not get updated');
             }
           })
@@ -92,7 +99,8 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
       .catch((error) => {
         console.error('Error:', error);
         setErrorMessage('Budget couldnt be set');
-      });   
+      });
+      window.location.reload();
   };
 
   const handleExpenseChange = (e) => {
@@ -114,6 +122,69 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
     } else {
       alert('Please enter both amount and reason.');
     }
+    /*// Prepare the data to match the backend API requirements
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1; // Months are zero-based, so we add 1
+    const currentYear = currentDate.getFullYear();
+
+    const requestData = {
+      appUserId: userId, // Assuming userId is defined somewhere in the parent component
+      categoryId: 1,
+      amount: parseFloat(budgetAmount),
+      transactionDate: currentDate,
+    };
+
+    const FinancialTransaction = new FinancialTransactionModel(
+      req.body.id,
+      req.body.appUserId,
+      req.body.categoryId,
+      req.body.amount,
+      req.body.transactionDate,
+      req.body.description,
+      req.body.canceled
+  );
+
+    //router.post('/financialtransaction', FinancialTransactionController.addFinancialTransaction); 
+
+    axios.get(backendAPI+ 'budget-month/' + userId + '/' + currentMonth + '/' + currentYear, { withCredentials: true })
+      .then((response) => {
+        if (response.data){
+          axios.put(backendAPI + 'budgets', requestData, { withCredentials: true })
+          .then((response) => {
+            if (response.data) {
+              console.log('Success:', response.data);
+            } else {
+              setErrorMessage('Budget did not get updated');
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            setErrorMessage('Budget couldnt be updated');
+          });
+        }
+        else{
+          axios.post(backendAPI + 'budgets', requestData, { withCredentials: true })
+          .then((response) => {
+            if (response.data) {
+              console.log('Success:', response.data);
+              // Store the user ID in local storage
+              // Redirect to home page on successful login
+            } else {
+              // Handle login failure
+              setErrorMessage('Budget did not get set');
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            setErrorMessage('Budget couldnt be set');
+          });
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        setErrorMessage('Budget couldnt be set');
+      });
+      window.location.reload();*/
   };
 
   return (
@@ -128,11 +199,11 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
             placeholder="$" 
           />
         </label>
-        <button type="submit">Set Budget</button>
+        <button type="submit">Set and/or Update Budget</button>
       </form>
       <form onSubmit={handleExpenseSubmit}>
         <label>
-          Enter expense amount (in dollars):
+          Enter expense and/or income amount (in dollars):
           <input 
             type="number" 
             value={expenseAmount} 
