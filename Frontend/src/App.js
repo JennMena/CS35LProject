@@ -10,20 +10,18 @@ import ProfilePage from './components/profilePage';
 import CategoriesPage from './components/categoriesPage/categoriesPage';
 import Modal from 'react-modal';
 import About from './components/about';
+import Logout from './components/logout';
 
 function App() {
  const [modalIsOpen, setModalIsOpen] = useState(false);
-
 
  const openModal = () => {
    setModalIsOpen(true);
  };
 
-
  const closeModal = () => {
    setModalIsOpen(false);
  };
-
 
  return (
    <Router>
@@ -70,6 +68,11 @@ function App() {
                    Profile
                  </button>
                </li>
+               <li className="nav-item">
+                 <Link className="nav-link" to={'/logout-page'}>
+                   Logout
+                 </Link>
+               </li>
              </ul>
            </div>
          </div>
@@ -88,6 +91,7 @@ function App() {
                path="/profile-page"
                element={<ProfilePage modalIsOpen={modalIsOpen} closeModal={closeModal} />}
              />
+             <Route path="/logout-page" element={<Logout />} />
            </Routes>
          </div>
        </div>
