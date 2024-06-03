@@ -13,8 +13,8 @@
   /* Add new style for the button */
   /* Adjust the margin and position the button to the right */
   .home-page-container .history-button {
-    margin-top: -1000px; /* Adjust the margin as needed */
-    margin-left: 1000px; /* Push the button to the right */
+    margin-top: -90px; /* Adjust the margin as needed */
+    margin-left: 800px; /* Push the button to the right */
     background-color: rgb(108, 7, 139); /* Set button background color */
     color: white; /* Set button text color */
     font-size: 20px; /* Set font size */
@@ -38,8 +38,22 @@
   
   .home-page-container h2 {
     font-size: 2em;
-    color: #555;
+    color: #4c0870;
     margin: 20px 0;
+  }
+
+  .home-page-container h3 {
+    font-size: 1.5em;
+    color: #21057e;
+    margin-top: 40px;
+    margin-right: 300px;
+  }
+
+  .home-page-container h4 {
+    font-size: 1.3em;
+    color: #21057e;
+    margin-top: 50px;
+    margin-right: 200px;
   }
   
   .home-page-container form {

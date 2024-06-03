@@ -55,11 +55,8 @@ const HomePage = () => {
     <div className="home-page-container">
       <h1>Expense Tracker</h1>
       <BudgetForm onBudgetSubmit={handleBudgetSubmit} onExpenseSubmit={handleExpenseSubmit} />
-      <BudgetGraph /*budget={budget}*/ spent={spent} />
+      <BudgetGraph />
       <ExpenseList expenses={expenses} />
-      <Link to="/history-page">
-        <button className="btn btn-primary history-button">Transaction History</button>
-      </Link>
     </div>
   );
 };

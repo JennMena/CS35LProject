@@ -1,9 +1,14 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate from react-router-dom
+import './homePage.css'; // Import the new CSS file
 
 const ExpenseList = ({ expenses }) => {
   return (
     <div>
-      <h2>Expense List:</h2>
+      <h3>Please Navigate to the History Page to view your Transactions for Now:</h3>
+      <Link to="/history-page">
+        <button className="btn btn-primary history-button">Transaction History</button>
+      </Link>
       <ul>
         {expenses.map((expense, index) => (
           <li key={index}>
