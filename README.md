@@ -51,4 +51,33 @@
 ## Usage
 Once the setup is complete, the project should be fully connected and operational. Create your user account and start managing your expenses!
 
+## Database Structure
+The database schema for BudgetBuddy is designed to manage user information, roles, permissions, categories, budgets, and financial transactions. Currently, the only view implemented is for users, but the project is designed with future work in mind, such as adding admin and auditor views.
+
+### Tables
+- **AppUser**: Stores user information including personal details and credentials.
+- **AppRole**: Defines different roles within the application.
+- **Permission**: Lists various permissions that can be assigned to roles.
+- **AppRolePermission**: Links roles with their respective permissions.
+- **AppUserAppRole**: Associates users with their assigned roles.
+- **Category**: Manages expense and income categories for users.
+- **FinancialTransaction**: Records all financial transactions made by users.
+- **FinancialTransactionFixed**: Manages fixed financial transactions that occur regularly.
+- **Budget**: Stores budget details for each user, including monthly and yearly budgets.
+
+### Future Implementations
+- **Admin View**: Will allow for administrative control over user accounts, roles, and permissions.
+- **Auditor View**: Will enable auditing capabilities to review and manage financial transactions and user activities.
+
+
+## Front-End Structure
+The front end of BudgetBuddy is built using React and includes the following main pages:
+
+- **Login Page**: Allows users to log into their accounts.
+- **Sign Up Page**: Enables new users to create an account.
+- **Home Page**: Provides an overview and quick access to the main features of the app, including budget tracking and expense input.
+- **History Page**: Displays a list of expenses and incomes, with options to edit, delete, and search through past transactions.
+- **Categories Page**: Allows users to add or delete categories for organizing their expenses and incomes.
+- **User Information Page**: Displays user information and account status.
+
 
