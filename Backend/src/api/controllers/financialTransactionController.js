@@ -84,6 +84,17 @@ const deleteFinancialTransaction = async (req, res) => {
     
 };
 
+const getTransWithUserIdAndCategory= async (req, res) => {
+    try {
+        const FinancialTransactions = await FinancialTransactionService.getTransWithUserIdAndCategory(req.params.appUserId, req.params.categoryName);
+        res.status(200).json(FinancialTransactions);
+    } catch (error) {
+        console.error('Function controllers/getTransWithUserIdAndCategory error:', error);
+        res.status(500).send('Error when getting financial transaction and category from the database');
+    }
+    
+};
+
 ///////////////////
 const getTransWithUserIdAndMonth = async (req, res) => {
     try {
@@ -126,5 +137,6 @@ module.exports = {
     getTransactionsByUserId,
     getTransWithUserIdAndMonth,
     getAllTransactionsOfMonth,
-    getSumOfTransactionsByTypeAndMonth
+    getSumOfTransactionsByTypeAndMonth,
+    getTransWithUserIdAndCategory
 }

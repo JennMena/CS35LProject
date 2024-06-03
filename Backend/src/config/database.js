@@ -2,10 +2,11 @@ const sql = require('mssql');
 const constants = require('../../../constants')
 
 const config = {
-    user: constants.DB_USER,
-    password: constants.DB_PASSWORD,
-    server: constants.DB_SERVER,
-    database: constants.DB_DATABASE,
+
+    user: 'sa',
+    password: 'Shivani@mn123',
+    server: 'localhost',
+    database: 'BUDGET',
     options: {
         encrypt: true,
         trustServerCertificate: true

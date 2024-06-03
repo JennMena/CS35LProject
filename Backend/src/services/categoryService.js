@@ -75,6 +75,34 @@ const getCategoryById = async (id, appUserId) => {
     }
 };
 
+const getCategoriesByName = async (name, appUserId) => {
+    try {
+
+        const pool = await getConnection();
+        const result = await pool.request()
+            .input('nameArg', sql.VarChar(100), name)
+            .input('appUserIdArg', sql.BigInt, appUserId)
+            .query('SELECT * FROM Category WHERE name = @nameArg AND appUserId = @appUserIdArg');
+
+        if (result.recordset.length === 0) {
+            console.log('No categories found for name.');
+            return [];
+        }
+
+        return result.recordset.map(record => new Category(
+            record.id,
+            record.appUserId,
+            record.name,
+            record.type,
+            record.description,
+            record.enabled
+        ));
+    } catch (error) {
+        console.log('Function services/getCategoriesByName error:', error);
+        throw error;
+    }
+};
+
 const getAllCategories = async () => {
     try {
         const pool = await getConnection();
@@ -133,5 +161,6 @@ module.exports = {
     getCategoryById,
     getAllCategories,
     updateCategory,
-    deleteCategoryById
+    deleteCategoryById,
+    getCategoriesByName
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
 import axios from 'axios';
 
@@ -35,9 +35,9 @@ const BudgetGraph = ({ budget, spent }) => {
   );
 };
 
-export default BudgetGraph;
+export default BudgetGraph;*/
 
-/*import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
 import axios from 'axios';
 
@@ -58,7 +58,7 @@ const BudgetGraph = ({ spent }) => {
         const response = await axios.get(backendAPI+ 'budget-month/' + userId + '/' + currentMonth + '/' + currentYear, { withCredentials: true });
 
         if (response.data) {
-          setBudget(response.data.budget);
+          setBudget(response.data.amount);
         } else {
           setErrorMessage('No budget found for the current month.');
         }
@@ -105,4 +105,4 @@ const BudgetGraph = ({ spent }) => {
   );
 };
 
-export default BudgetGraph;*/
+export default BudgetGraph;

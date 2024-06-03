@@ -8,6 +8,7 @@ const backendAPI = "http://localhost:3001/";
 
 const HistoryPage = () => {
   const [userId, setUserId] = useState(localStorage.getItem('userId'));
+  const [transactions, setTransactions] = useState([]);
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState(''); // 'success' or 'error'
