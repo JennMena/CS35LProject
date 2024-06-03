@@ -8,6 +8,7 @@ const backendAPI = "http://localhost:3001/";
 
 const HistoryPage = () => {
   const [userId, setUserId] = useState(localStorage.getItem('userId'));
+  const [transactions, setTransactions] = useState([]);
   const navigate = useNavigate();
   //console.log(userId);
   useEffect(() => {
@@ -35,7 +36,9 @@ const HistoryPage = () => {
     <div className="history-page-container">
       <h1>History Page</h1>
       {userId ? (
+        <>
         <TransactionList userId={userId} />
+        </>
       ) : (
         <p>Loading user data...</p>
       )}

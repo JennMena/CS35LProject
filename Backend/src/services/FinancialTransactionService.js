@@ -112,8 +112,7 @@ const getTransWithUserIdAndCategory = async (appUserId, categoryName) => {
                 JOIN Category c ON ft.categoryId = c.id
                 WHERE ft.appUserId = @appUserId
                   AND c.appUserId = @appUserId
-                  AND c.name = @categoryName
-                  AND ft.canceled = 0;
+                  AND c.name = @categoryName;
             `); // excluding canceled transactions
 
         // Log the query result for debugging

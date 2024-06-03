@@ -3,6 +3,8 @@ import axios from 'axios';
 import TransactionItem from './transactionItem';
 import ConfirmationDialog from './confirmationDialog';
 import EditTransactionDialog from './editTransactionDialog';
+import Search from '../search';
+
 import '../historyPage.css'; // Import the CSS file
 
 const backendAPI = "http://localhost:3001/";
@@ -160,6 +162,7 @@ const TransactionList = ({ userId }) => {
 
   return (
     <div className="transaction-list">
+      <Search userId={userId} setTransactions={setTransactions} /> {/* ADD SEARCH COMPONENT AND PASS setTransactions PROP */}
       {transactions.length > 0 ? (
         <ul>
           {transactions.map((transaction) => (
