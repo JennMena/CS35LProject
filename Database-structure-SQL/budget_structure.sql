@@ -1,4 +1,4 @@
---drop database BUDGET
+--drop database BUDGET --Uncomment this line if you already have an existing database called BUDGET
 create database BUDGET
 go
 
