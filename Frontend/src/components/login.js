@@ -115,7 +115,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './sign.css';
 
-const SignInForm = ({ onLogin }) => { // Accept onLogin prop
+const SignInForm = ({ setIsAuthenticated }) => {
   const backendAPI = "http://localhost:3001/";
   const navigate = useNavigate();
 
@@ -136,30 +136,20 @@ const SignInForm = ({ onLogin }) => { // Accept onLogin prop
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
 
-    // Prepare the data to match the backend API requirements
     const requestData = {
       username: formData.email,
       password: formData.password,
     };
 
-    //console.log('Form submitted:', requestData); // Debug log
-
-    // Make the HTTP request
-    // withCredentials: true -> ensures that axios sends cookies (including session cookies)
-    // with the requests -> maintaining the session between the client and server.
     axios.post(backendAPI + 'login', requestData, { withCredentials: true })
       .then((response) => {
         if (response.data.exist) {
-          // Store the user ID in local storage
           localStorage.setItem('userId', response.data.userId);
-          // Call onLogin to update the authentication state in App
-          onLogin();
-          // Redirect to home page on successful login
+          setIsAuthenticated(true);
           navigate('/home-page');
         } else {
-          // Handle login failure
           setErrorMessage('Login failed. Please check your credentials and try again.');
         }
       })

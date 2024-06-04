@@ -138,7 +138,7 @@ import Logout from './components/logout';
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Add authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -146,15 +146,6 @@ function App() {
 
   const closeModal = () => {
     setModalIsOpen(false);
-  };
-
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem('userId');
   };
 
   return (
@@ -208,7 +199,7 @@ function App() {
                       </button>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to={'/logout-page'} onClick={handleLogout}>
+                      <Link className="nav-link" to={'/logout-page'}>
                         Logout
                       </Link>
                     </li>
@@ -221,8 +212,8 @@ function App() {
         <div className="auth-wrapper">
           <div className="auth-inner">
             <Routes>
-              <Route exact path="/" element={<Login onLogin={handleLogin} />} />
-              <Route path="/sign-in" element={<Login onLogin={handleLogin} />} />
+              <Route exact path="/" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+              <Route path="/sign-in" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/home-page" element={<HomePage />} />
               <Route path="/history-page" element={<HistoryPage />} />
@@ -232,7 +223,7 @@ function App() {
                 path="/profile-page"
                 element={<ProfilePage modalIsOpen={modalIsOpen} closeModal={closeModal} />}
               />
-              <Route path="/logout-page" element={<Logout onLogout={handleLogout} />} />
+              <Route path="/logout-page" element={<Logout setIsAuthenticated={setIsAuthenticated} />} />
             </Routes>
           </div>
         </div>
