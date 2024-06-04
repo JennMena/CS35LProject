@@ -143,7 +143,7 @@ import Modal from 'react-modal';
 import About from './components/about';
 import Logout from './components/logout';
 import SettingsPage from './components/SettingsPage/settingsPage';
-
+import Pig from './images/pig.png';
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -172,7 +172,8 @@ function App() {
         <nav className="navbar navbar-expand-lg navbar-light fixed-top">
           <div className="container">
             <Link className="navbar-brand" to={'/sign-in'}>
-              BudgetBuddy!
+            <img src={Pig} alt="Pig Icon" className="mr-2" style={{ width: '50px', height: '50px', marginRight: '10px', marginLeft: '-10px'  }} />
+              PennyPig!
             </Link>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul className="navbar-nav ml-auto">
