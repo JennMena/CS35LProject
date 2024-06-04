@@ -18,20 +18,11 @@ const Logout = () => {
   };
 
   const handleLogout = () => {
-    axios.post(backendAPI + 'logout', {}, { withCredentials: true })
-      .then((response) => {
-        if (response.status === 200) {
-          localStorage.removeItem('userID', response.data.userId); // Adjust the key as per your storage
-          localStorage.removeItem('token'); // Adjust the key as per your storage
-          navigate('/sign-in');
-        } else {
-          console.error('Logout failed:', response);
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  };
+    localStorage.removeItem('userId'); // Adjust the key as per your storage
+    sessionStorage.removeItem('userId');
+    navigate('/sign-in');
+    window.location.reload();
+  }
 
   return (
     <div className="logout-container">
