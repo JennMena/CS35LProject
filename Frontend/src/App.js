@@ -142,10 +142,19 @@ import CategoriesPage from './components/categoriesPage/categoriesPage';
 import Modal from 'react-modal';
 import About from './components/about';
 import Logout from './components/logout';
+import SettingsPage from './components/SettingsPage/settingsPage';
+
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Add authentication state
+  let isAuthenticated = false;
+
+  if(sessionStorage.getItem('userId') != null){
+    isAuthenticated = true;
+  }
+  else{
+    isAuthenticated = false;
+  }
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -155,14 +164,7 @@ function App() {
     setModalIsOpen(false);
   };
 
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem('userId');
-  };
 
   return (
     <Router>
@@ -215,7 +217,12 @@ function App() {
                       </button>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to={'/logout-page'} onClick={handleLogout}>
+                      <Link className="nav-link" to={'/settings-page'}>
+                        Settings
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to={'/logout-page'}>
                         Logout
                       </Link>
                     </li>
@@ -228,18 +235,19 @@ function App() {
         <div className="auth-wrapper">
           <div className="auth-inner">
             <Routes>
-              <Route exact path="/" element={<Login onLogin={handleLogin} />} />
-              <Route path="/sign-in" element={<Login onLogin={handleLogin} />} />
+              <Route exact path="/" element={<Login />} />
+              <Route path="/sign-in" element={<Login  />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/home-page" element={<HomePage />} />
               <Route path="/history-page" element={<HistoryPage />} />
               <Route path="/category-page" element={<CategoriesPage />} />
               <Route path="/about-page" element={<About />} />
+              <Route path="/settings-page" element={<SettingsPage />} />
               <Route
                 path="/profile-page"
                 element={<ProfilePage modalIsOpen={modalIsOpen} closeModal={closeModal} />}
               />
-              <Route path="/logout-page" element={<Logout onLogout={handleLogout} />} />
+              <Route path="/logout-page" element={<Logout />} />
             </Routes>
           </div>
         </div>

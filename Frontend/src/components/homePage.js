@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate from react-router-dom
 import BudgetForm from './budgetForm';
 import BudgetGraph from './budgetGraph';
-import ExpenseList from './expenseList';
 import axios from 'axios';
 import './homePage.css'; // Import the new CSS file
 
 const HomePage = () => {
-  const [userId, setUserId] = useState(localStorage.getItem('userId'));
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,7 +55,6 @@ const HomePage = () => {
       <h1>Expense Tracker</h1>
       <BudgetForm onBudgetSubmit={handleBudgetSubmit} onExpenseSubmit={handleExpenseSubmit} />
       <BudgetGraph />
-      <ExpenseList expenses={expenses} />
     </div>
   );
 };

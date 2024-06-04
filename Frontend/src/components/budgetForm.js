@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Import axios
+import './homePage.css'; // Import CSS file
 
 const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
-  const [userId, setUserId] = useState(localStorage.getItem('userId'));
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
   const [budgetAmount, setBudgetAmount] = useState('');
   const [expenseAmount, setExpenseAmount] = useState('');
   const [expenseReason, setExpenseReason] = useState('');
@@ -10,6 +11,7 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
   const [categories, setCategories] = useState([]); // State for categories
 
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const backendAPI = "http://localhost:3001/";
 
@@ -42,6 +44,7 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
     .then((response) => {
       if (response.data) {
         console.log('Success:', response.data);
+        setSuccessMessage('Budget updated successfully');
       } else {
         setErrorMessage('Budget did not get updated');
       }
@@ -127,11 +130,10 @@ router.get('/totalsum-month/:appUserId/:type/:month/:year', FinancialTransaction
       .then((response) => {
         if (response.data) {
           console.log('Success:', response.data);
-          // Store the user ID in local storage
-          // Redirect to home page on successful login
+          setSuccessMessage('Financial Transaction updated successfully');
         } else {
           // Handle login failure
-          setErrorMessage('transaction did not go through');
+          setErrorMessage('Transaction did not go through');
         }
       })
       .catch((error) => {
@@ -182,7 +184,7 @@ router.get('/totalsum-month/:appUserId/:type/:month/:year', FinancialTransaction
         <label>
           Category:
           <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-            <option value="">Select category...</option>
+            <option value="">Select a category or go to My Categories Page to add one...</option>
             {categories.map(category => (
               <option key={category.id} value={category.id}>{category.name}</option>
             ))}
@@ -198,6 +200,16 @@ router.get('/totalsum-month/:appUserId/:type/:month/:year', FinancialTransaction
         </label>
         <button type="submit">Add Expense and/or Income</button>
       </form>
+      {errorMessage && (
+        <div className="alert alert-danger" role="alert">
+          {errorMessage}
+        </div>
+      )}
+      {successMessage && (
+        <div className="alert alert-success" role="alert">
+          {successMessage}
+        </div>
+      )}
     </div>
   );
 };

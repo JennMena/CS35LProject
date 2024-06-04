@@ -73,6 +73,23 @@ const updateUser = async (req, res) => {
     }
 };
 
+const updateUserById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const appUser = {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            password: req.body.password
+        };
+
+        const result = await appUserService.updateUserById(id, appUser);
+
+        res.status(result.status).json({ message: result.message, user: result.user });
+    } catch (error) {
+        console.error('Function controllers/updateUserById error:', error);
+        res.status(500).send('Error when updating user from the database');
+    }
+};
 const deleteUser = async (req, res) => {
     try {
         const allUsers = await appUserService.deleteUser(req.params.id);
@@ -106,5 +123,6 @@ module.exports = {
     addUser,
     updateUser,
     deleteUser,
-    login
+    login,
+    updateUserById
 }

@@ -105,7 +105,6 @@ const updateUser = async (appUser) => {
             .input('id', sql.BigInt, appUser.id)
             .input('firstName', sql.VarChar(100), appUser.firstName)
             .input('lastName', sql.VarChar(100), appUser.lastName)
-            .input('username', sql.VarChar(50), appUser.username)
             .input('password', sql.VarChar(500), appUser.password)
             .input('address', sql.VarChar(200), appUser.address)
             .input('email', sql.VarChar(200), appUser.email)
@@ -118,6 +117,56 @@ const updateUser = async (appUser) => {
     } catch (error) {
         console.log('Function services/updateUser error:', error);
         throw error;
+    }
+};
+
+const updateUserById = async (id, appUser) => {
+    try {
+        const pool = await getConnection();
+        const userResult = await pool.request()
+            .input('id', sql.BigInt, id)
+            .query('SELECT * FROM appUser WHERE id = @id');
+
+        if (userResult.recordset.length === 0) {
+            console.log('User not found.');
+            return { message: 'User not found', status: 404 };
+        }
+
+        let query = 'UPDATE appUser SET ';
+        const inputParams = [];
+
+        if (appUser.firstName) {
+            query += 'firstName = @firstName, ';
+            inputParams.push({ name: 'firstName', type: sql.VarChar, value: appUser.firstName });
+        }
+
+        if (appUser.lastName) {
+            query += 'lastName = @lastName, ';
+            inputParams.push({ name: 'lastName', type: sql.VarChar, value: appUser.lastName });
+        }
+
+        if (appUser.password) {
+            query += 'password = @password, ';
+            inputParams.push({ name: 'password', type: sql.VarChar, value: appUser.password });
+        }
+
+        // Remove the trailing comma and space
+        query = query.slice(0, -2);
+        query += ' WHERE id = @id';
+
+        const request = pool.request().input('id', sql.BigInt, id);
+
+        // Add the input parameters to the request
+        inputParams.forEach(param => {
+            request.input(param.name, param.type, param.value);
+        });
+
+        await request.query(query);
+
+        return { message: 'User updated successfully', status: 200 };
+    } catch (error) {
+        console.log('Function services/updateUserById error:', error);
+        return { message: 'Internal server error', status: 500 };
     }
 };
 
@@ -163,5 +212,6 @@ module.exports = {
     addUser,
     updateUser,
     deleteUser,
-    login
+    login,
+    updateUserById
 };
