@@ -158,14 +158,14 @@ const BudgetGraph = () => {
   const remaining = (budget || 0) - (spent || 0) + (earned || 0);
 
   const budgetChartData = [
-    { title: 'Budget', value: budget || 0, color: '#007bff' },
-    { title: 'Spent', value: spent || 0, color: '#dc3545' },
-    { title: 'Income', value: earned || 0, color: '#28a745' },
+    ...(budget > 0 ? [{ title: 'Budget', value: budget, color: '#007bff' }] : []),
+    ...(spent > 0 ? [{ title: 'Spent', value: spent, color: '#FF5722' }] : []),
+    ...(earned > 0 ? [{ title: 'Income', value: earned, color: '#28a745' }] : [])
   ];
 
   const remainingChartData = [
-    { title: 'Remaining', value: remaining || 0, color: '#4CAF50' },
-    { title: 'Spent', value: spent || 0, color: '#FF5722' },
+    ...(remaining > 0 ? [{title: 'Remaining', value: remaining, color: '#4CAF50' }] : []),
+    ...(spent > 0 ? [{ title: 'Spent', value: spent, color: '#dc3545' }] : []),
   ];
 
   const formatAsDollars = (amount) => `$${(amount || 0).toFixed(2)}`;

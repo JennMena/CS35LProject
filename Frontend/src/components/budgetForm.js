@@ -54,7 +54,9 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
             if (response.data) {
               console.log('Success:', response.data);
             } else {
+              console.log('Budget did not get updated:', response.data);
               setErrorMessage('Budget did not get updated');
+              
             }
           })
           .catch((error) => {
@@ -71,6 +73,7 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
               // Redirect to home page on successful login
             } else {
               // Handle login failure
+              console.log('Budget didnt get updated:', response.data);
               setErrorMessage('Budget did not get set');
             }
           })
