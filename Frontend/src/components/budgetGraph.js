@@ -5,7 +5,7 @@ import './homePage.css'; // Import the new CSS file
 import axios from 'axios';
 
 const BudgetGraph = () => {
-  const [userId, setUserId] = useState(localStorage.getItem('userId'));
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
   const [budget, setBudget] = useState(0);
   const [spent, setSpent] = useState(0);
   const [earned, setEarned] = useState(0);

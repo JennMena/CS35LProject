@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Import axios
 
 const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
-  const [userId, setUserId] = useState(localStorage.getItem('userId'));
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
   const [budgetAmount, setBudgetAmount] = useState('');
   const [expenseAmount, setExpenseAmount] = useState('');
   const [expenseReason, setExpenseReason] = useState('');

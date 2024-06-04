@@ -115,9 +115,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './sign.css';
 
-const SignInForm = ({ setIsAuthenticated }) => {
+const SignInForm = () => {
   const backendAPI = "http://localhost:3001/";
   const navigate = useNavigate();
+
+  if(sessionStorage.getItem('userId')){
+    navigate('/home-page');
+  }
 
   const [formData, setFormData] = useState({
     email: '',
@@ -146,9 +150,9 @@ const SignInForm = ({ setIsAuthenticated }) => {
     axios.post(backendAPI + 'login', requestData, { withCredentials: true })
       .then((response) => {
         if (response.data.exist) {
-          localStorage.setItem('userId', response.data.userId);
-          setIsAuthenticated(true);
+          sessionStorage.setItem('userId', response.data.userId);
           navigate('/home-page');
+          window.location.reload();
         } else {
           setErrorMessage('Login failed. Please check your credentials and try again.');
         }
