@@ -3,10 +3,10 @@ const constants = require('../../../constants')
 
 const config = {
 
-    user: 'sa2',
-    password: '1234',
-    server: 'localhost',
-    database: 'BUDGET',
+    user: constants.DB_USER,
+    password: constants.DB_PASSWORD,
+    server: constants.DB_SERVER,
+    database: constants.DB_DATABASE,
     options: {
         encrypt: true,
         trustServerCertificate: true
