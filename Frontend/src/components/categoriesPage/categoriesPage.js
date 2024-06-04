@@ -66,7 +66,7 @@ const CategoriesPage = () => {
       setSuccessMessage('Category deleted successfully');
       setTimeout(() => setSuccessMessage(''), 3000);
     } catch (error) {
-      setErrorMessage('Error deleting category');
+      setErrorMessage('Error deleting category, make sure no transactions are under this category');
       setTimeout(() => setErrorMessage(''), 3000);
     }
   };
