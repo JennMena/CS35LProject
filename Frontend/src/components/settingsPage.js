@@ -32,8 +32,8 @@ const SettingsPage = () => {
           localStorage.setItem('lastName', response.data.lastName);
           localStorage.setItem('registrationDate', response.data.registrationDate);
           localStorage.setItem('username', response.data.username);
-          setUserData(response.data); 
-        } 
+          setUserData(response.data);
+        }
       } catch (error) {
         console.error('Error verifying user:', error);
       }
@@ -70,13 +70,23 @@ const SettingsPage = () => {
 
   const handleLastNameChange = async () => {
     try {
-      const response = await axios.put(`${backendAPI}users`, { lastName: newLastName }, { withCredentials: true });
+      const response = await axios.put(`${backendAPI}users/${userId}`, { lastName: newLastName }, { withCredentials: true });
       setLastName(response.data.lastName);
       localStorage.setItem('lastName', response.data.lastName);
       setIsEditingLastName(false);
     } catch (error) {
       console.error('Error updating last name:', error);
     }
+  };
+
+  const handleEditFirstName = () => {
+    setNewFirstName(firstName);
+    setIsEditingFirstName(true);
+  };
+
+  const handleEditLastName = () => {
+    setNewLastName(lastName);
+    setIsEditingLastName(true);
   };
 
   return (
@@ -89,9 +99,9 @@ const SettingsPage = () => {
         <p>Username: {username}</p>
       </div>
       <div>
-      <div>
         <p>Registration Date: {formattedDateMDY}</p>
       </div>
+      <div>
         <p>First Name: {firstName}</p>
         {isEditingFirstName ? (
           <div>
@@ -104,7 +114,7 @@ const SettingsPage = () => {
             <button onClick={() => setIsEditingFirstName(false)}>Cancel</button>
           </div>
         ) : (
-          <button onClick={() => setIsEditingFirstName(true)}>Edit</button>
+          <button onClick={handleEditFirstName}>Edit</button>
         )}
       </div>
       <div>
@@ -120,7 +130,7 @@ const SettingsPage = () => {
             <button onClick={() => setIsEditingLastName(false)}>Cancel</button>
           </div>
         ) : (
-          <button onClick={() => setIsEditingLastName(true)}>Edit</button>
+          <button onClick={handleEditLastName}>Edit</button>
         )}
       </div>
     </div>

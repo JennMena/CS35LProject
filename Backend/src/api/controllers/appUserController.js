@@ -73,6 +73,30 @@ const updateUser = async (req, res) => {
     }
 };
 
+const updateUserById= async (req, res) => {
+    try {
+        const appUser = new AppUserModel(
+            req.body.id,
+            req.body.firstName,
+            req.body.lastName,
+            req.body.username,
+            req.body.password,
+            req.body.address,
+            req.body.email,
+            req.body.phoneNumber,
+            req.body.birthDate,
+            req.body.gender,
+            req.body.registrationDate,
+            req.body.enabled,
+        );
+        const updatedUser = await appUserService.updateUserById(appUser);
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        console.error('Function controllers/updateUserById error:', error);
+        res.status(500).send('Error when updating user from the database');
+    }
+};
+
 const deleteUser = async (req, res) => {
     try {
         const allUsers = await appUserService.deleteUser(req.params.id);

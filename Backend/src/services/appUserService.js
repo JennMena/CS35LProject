@@ -121,6 +121,24 @@ const updateUser = async (appUser) => {
     }
 };
 
+const updateUserById = async (appUser, id) => {
+    try {
+        const pool = await getConnection();
+        await pool.request()
+            .input('id', sql.BigInt, id)
+            .input('firstName', sql.Money, appUser.firstName)
+            .input('lastName', sql.Money, appUser.lastName)
+            .input('username', sql.Money, appUser.username)
+            .input('password', sql.Money, appUser.password)
+            .input('registrationDate', sql.Money, appUser.registrationDate)
+            .query('UPDATE appUser SET firstname = @firstName, lastName = @lastName, username = @username, password = @password, registrationDate = @registrationDate, WHERE id=@id');
+        //return getUserById(id);
+    } catch (error) {
+        console.log('Function services/updateUserById error:', error);
+        throw error;
+    }
+};
+
 const deleteUser = async (id) => {
     try {
         const pool = await getConnection();
