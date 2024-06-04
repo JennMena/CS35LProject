@@ -92,6 +92,48 @@ const addBudget = async (budget) => {
     }
 };
 
+const addOrUpdateBudget = async (budget) => {
+    try {
+        const pool = await getConnection();
+        
+        const budgetExists = await pool.request()
+            .input('userId', sql.BigInt, budget.userId)
+            .input('month', sql.TinyInt, budget.month)
+            .input('year', sql.SmallInt, budget.year)
+            .query('SELECT id FROM Budget WHERE userId = @userId AND month = @month AND year = @year');
+
+        let result;
+        if (budgetExists.recordset.length > 0) {
+            // Budget exists, so update it
+            const existingBudgetId = budgetExists.recordset[0].id;
+            result = await pool.request()
+                .input('budgetId', sql.BigInt, existingBudgetId)
+                .input('amount', sql.Money, budget.amount)
+                .query('UPDATE Budget SET amount = @amount WHERE id = @budgetId; SELECT @budgetId as id');
+        } else {
+            // No budget exists, so insert a new one
+            result = await pool.request()
+                .input('userId', sql.BigInt, budget.userId)
+                .input('amount', sql.Money, budget.amount)
+                .input('month', sql.TinyInt, budget.month)
+                .input('year', sql.SmallInt, budget.year)
+                .query('INSERT INTO Budget (userId, amount, month, year) VALUES (@userId, @amount, @month, @year); SELECT SCOPE_IDENTITY() as id');
+        }
+
+        return new Budget(
+            result.recordset[0].id,
+            budget.appUserId,
+            budget.amount,
+            budget.month,
+            budget.year,
+            new Date(),
+        );
+
+    } catch (error) {
+        console.log('Function services/addOrUpdateBudget error:', error);
+        throw error;
+    }
+};
 const updateBudget = async (Budget, id) => {
     try {
         const pool = await getConnection();
@@ -156,5 +198,6 @@ module.exports = {
     updateBudget,
     deleteBudget,
     getBudgetByUserId,
-    getBudgetByUserIdAndMonth
+    getBudgetByUserIdAndMonth,
+    addOrUpdateBudget
 };

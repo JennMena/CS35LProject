@@ -8,7 +8,8 @@ router.get('/budget-user/:appUserId', budgetController.getBudgetByUserId);
 
 router.get('/budgets/:id', budgetController.getBudgetById);
 
-router.put('/budgets', budgetController.updateBudget);
+//router.put('/budgets', budgetController.updateBudget);
+router.put('/budgets', budgetController.addOrUpdateBudget);
 
 router.delete('/budgets/:id', budgetController.deleteBudget);
 
