@@ -144,9 +144,17 @@ import About from './components/about';
 import Logout from './components/logout';
 import SettingsPage from './components/settingsPage';
 
+
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  let isAuthenticated = false;
+
+  if(sessionStorage.getItem('userId') != null){
+    isAuthenticated = true;
+  }
+  else{
+    isAuthenticated = false;
+  }
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -155,6 +163,8 @@ function App() {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+
 
   return (
     <Router>
@@ -225,8 +235,8 @@ function App() {
         <div className="auth-wrapper">
           <div className="auth-inner">
             <Routes>
-              <Route exact path="/" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
-              <Route path="/sign-in" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+              <Route exact path="/" element={<Login />} />
+              <Route path="/sign-in" element={<Login  />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/home-page" element={<HomePage />} />
               <Route path="/history-page" element={<HistoryPage />} />
@@ -237,7 +247,7 @@ function App() {
                 path="/profile-page"
                 element={<ProfilePage modalIsOpen={modalIsOpen} closeModal={closeModal} />}
               />
-              <Route path="/logout-page" element={<Logout setIsAuthenticated={setIsAuthenticated} />} />
+              <Route path="/logout-page" element={<Logout />} />
             </Routes>
           </div>
         </div>

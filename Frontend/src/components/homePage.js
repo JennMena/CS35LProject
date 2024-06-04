@@ -6,7 +6,7 @@ import axios from 'axios';
 import './homePage.css'; // Import the new CSS file
 
 const HomePage = () => {
-  const [userId, setUserId] = useState(localStorage.getItem('userId'));
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
   const navigate = useNavigate();
 
   useEffect(() => {

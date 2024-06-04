@@ -7,7 +7,7 @@ import './historyPage.css'; // Import the new CSS file
 const backendAPI = "http://localhost:3001/";
 
 const HistoryPage = () => {
-  const [userId, setUserId] = useState(localStorage.getItem('userId'));
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
   const [transactions, setTransactions] = useState([]);
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
@@ -25,7 +25,7 @@ const HistoryPage = () => {
           setUserId(response.data.id);
           setUsername(response.data.firstName);
           setEmail(response.data.username);
-          localStorage.setItem('userId', response.data.id);
+          sessionStorage.setItem('userId', response.data.id);
         }
       } catch (error) {
         console.error('Error verifying user:', error);
