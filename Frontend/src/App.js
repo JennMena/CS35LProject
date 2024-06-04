@@ -142,7 +142,7 @@ import CategoriesPage from './components/categoriesPage/categoriesPage';
 import Modal from 'react-modal';
 import About from './components/about';
 import Logout from './components/logout';
-import SettingsPage from './components/settingsPage';
+import SettingsPage from './components/SettingsPage/settingsPage';
 
 
 function App() {

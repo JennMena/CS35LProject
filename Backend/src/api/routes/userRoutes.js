@@ -275,7 +275,7 @@ router.post('/users', appUserController.addUser);
  *               example: "Error when updating user in the database"
  */
 router.put('/users', isAuthenticated, appUserController.updateUser);
-router.put('/users/:id', isAuthenticated, appUserController.updateUser);
+router.put('/users/:id',  appUserController.updateUserById);
 /**
  * @swagger
  * /users/{id}:

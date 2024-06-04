@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './settingsPage.css'
 
 const backendAPI = "http://localhost:3001/";
 
@@ -10,11 +11,11 @@ const SettingsPage = () => {
   const [lastName, setLastName] = useState(localStorage.getItem('lastName'));
   const [registrationDate, setRegistrationDate] = useState(localStorage.getItem('registrationDate'));
   const [username, setUsername] = useState(localStorage.getItem('username'));
-  const [userData, setUserData] = useState(null);
   const [isEditingFirstName, setIsEditingFirstName] = useState(false);
   const [isEditingLastName, setIsEditingLastName] = useState(false);
-  const [newFirstName, setNewFirstName] = useState('');
-  const [newLastName, setNewLastName] = useState('');
+  const [password, setPassword] = useState('');
+  const [isEditingPassword, setIsEditingPassword] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,12 +28,12 @@ const SettingsPage = () => {
           setLastName(response.data.lastName);
           setRegistrationDate(response.data.registrationDate);
           setUsername(response.data.username);
+          setPassword('');  // Do not store password in local storage for security reasons
           localStorage.setItem('userId', response.data.id);
           localStorage.setItem('firstName', response.data.firstName);
           localStorage.setItem('lastName', response.data.lastName);
           localStorage.setItem('registrationDate', response.data.registrationDate);
           localStorage.setItem('username', response.data.username);
-          setUserData(response.data);
         }
       } catch (error) {
         console.error('Error verifying user:', error);
@@ -46,22 +47,15 @@ const SettingsPage = () => {
     }
   }, [userId, navigate]);
 
-  const date = new Date(registrationDate);
-  const year = date.getUTCFullYear();
-  const month = date.getUTCMonth();
-  const day = date.getUTCDate();
-
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-  const formattedDateMDY = `${monthNames[month]} ${day}, ${year}`;
-
   const handleFirstNameChange = async () => {
     try {
-      const response = await axios.put(`${backendAPI}users/${userId}`, { firstName: newFirstName }, { withCredentials: true });
-      setFirstName(response.data.firstName);
-      localStorage.setItem('firstName', response.data.firstName);
+      const response = await axios.put(
+        `${backendAPI}users/${userId}`, 
+        { firstName }, 
+        { withCredentials: true }
+      );
+      setFirstName(response.data.user.firstName);
+      localStorage.setItem('firstName', response.data.user.firstName);
       setIsEditingFirstName(false);
     } catch (error) {
       console.error('Error updating first name:', error);
@@ -70,24 +64,53 @@ const SettingsPage = () => {
 
   const handleLastNameChange = async () => {
     try {
-      const response = await axios.put(`${backendAPI}users/${userId}`, { lastName: newLastName }, { withCredentials: true });
-      setLastName(response.data.lastName);
-      localStorage.setItem('lastName', response.data.lastName);
+      const response = await axios.put(
+        `${backendAPI}users/${userId}`, 
+        { lastName }, 
+        { withCredentials: true }
+      );
+      setLastName(response.data.user.lastName);
+      localStorage.setItem('lastName', response.data.user.lastName);
       setIsEditingLastName(false);
     } catch (error) {
       console.error('Error updating last name:', error);
     }
   };
+  const handlePasswordChange = async () => {
+    try {
+      const response = await axios.put(
+        `${backendAPI}users/${userId}`, 
+        { password }, 
+        { withCredentials: true }
+      );
+      setPassword(response.data.user.password);
+      setIsEditingPassword(false);
+    } catch (error) {
+      console.error('Error updating password:', error);
+    }
+  };
 
   const handleEditFirstName = () => {
-    setNewFirstName(firstName);
     setIsEditingFirstName(true);
   };
 
   const handleEditLastName = () => {
-    setNewLastName(lastName);
     setIsEditingLastName(true);
   };
+
+  const handleEditPassword = () => {
+    setIsEditingPassword(true);
+  };
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
+  const formattedDate = new Date(registrationDate).toLocaleDateString('en-US', {
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric'
+  });
 
   return (
     <div>
@@ -99,7 +122,7 @@ const SettingsPage = () => {
         <p>Username: {username}</p>
       </div>
       <div>
-        <p>Registration Date: {formattedDateMDY}</p>
+        <p>Registration Date: {formattedDate}</p>
       </div>
       <div>
         <p>First Name: {firstName}</p>
@@ -107,11 +130,11 @@ const SettingsPage = () => {
           <div>
             <input
               type="text"
-              value={newFirstName}
-              onChange={(e) => setNewFirstName(e.target.value)}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
-            <button onClick={handleFirstNameChange}>Update</button>
-            <button onClick={() => setIsEditingFirstName(false)}>Cancel</button>
+            <button onClick={() => { handleFirstNameChange(); setIsEditingFirstName(false); }}>Update</button>
+            <button onClick={() => {setIsEditingFirstName(false); window.location.reload();}}>Cancel</button>
           </div>
         ) : (
           <button onClick={handleEditFirstName}>Edit</button>
@@ -123,14 +146,33 @@ const SettingsPage = () => {
           <div>
             <input
               type="text"
-              value={newLastName}
-              onChange={(e) => setNewLastName(e.target.value)}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
-            <button onClick={handleLastNameChange}>Update</button>
-            <button onClick={() => setIsEditingLastName(false)}>Cancel</button>
+            <button onClick={() => { handleLastNameChange(); setIsEditingLastName(false); }}>Update</button>
+            <button onClick={() => {setIsEditingLastName(false); window.location.reload();}}>Cancel</button>
           </div>
         ) : (
           <button onClick={handleEditLastName}>Edit</button>
+        )}
+      </div>
+      <div>
+        <p>Password: *******</p>
+        {isEditingPassword ? (
+          <div>
+            <input
+              type={isPasswordVisible ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button onClick={togglePasswordVisibility}>
+              {isPasswordVisible ? '👁️' : '👁️‍🗨️'}
+            </button>
+            <button onClick={() => { handlePasswordChange(); setIsEditingPassword(false); }}>Update</button>
+            <button onClick={() => {setIsEditingPassword(false); window.location.reload();}}>Cancel</button>
+          </div>
+        ) : (
+          <button onClick={handleEditPassword}>Edit</button>
         )}
       </div>
     </div>
