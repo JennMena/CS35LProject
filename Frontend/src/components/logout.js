@@ -19,6 +19,7 @@ const Logout = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('userId'); // Adjust the key as per your storage
+    sessionStorage.removeItem('userId');
     navigate('/sign-in');
     window.location.reload();
   }
