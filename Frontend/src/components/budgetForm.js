@@ -44,10 +44,8 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
     .then((response) => {
       if (response.data) {
         console.log('Success:', response.data);
-        window.location.reload();
         setSuccessMessage('Budget updated successfully');
       } else {
-        window.location.reload();
         setErrorMessage('Budget did not get updated');
       }
     })
@@ -56,7 +54,7 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
       setErrorMessage('Budget couldn\'t be updated');
     });
 
-  /*window.location.reload();*/
+  window.location.reload();
 };
 
   const handleExpenseChange = (e) => {
@@ -132,12 +130,9 @@ router.get('/totalsum-month/:appUserId/:type/:month/:year', FinancialTransaction
       .then((response) => {
         if (response.data) {
           console.log('Success:', response.data);
-          // Store the user ID in local storage
-          window.location.reload();
           setSuccessMessage('Financial Transaction updated successfully');
         } else {
           // Handle login failure
-          window.location.reload();
           setErrorMessage('Transaction did not go through');
         }
       })
@@ -145,7 +140,7 @@ router.get('/totalsum-month/:appUserId/:type/:month/:year', FinancialTransaction
         console.error('Error:', error);
         setErrorMessage('Budget couldnt be set');
       });
-      //window.location.reload();
+      window.location.reload();
   };
 
   // Fetch categories from the backend API
