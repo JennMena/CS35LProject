@@ -65,11 +65,21 @@ const updateBudget = async (req, res) => {
             req.body.registrationDate
         );
         const fixedBudget = await BudgetService.updateBudget(budget);
-        //Update to success code after inserting
         res.status(200).json(fixedBudget);
     } catch (error) {
         console.error('Function controllers/updateBudget error:', error);
         res.status(500).send('Error when updating budget from the database');
+    }
+};
+
+const addOrUpdateBudget = async (req, res) => {
+    try {
+        const budget = req.body;
+        const updatedBudget = await BudgetService.addOrUpdateBudget(budget);
+        res.status(200).json(updatedBudget);
+    } catch (error) {
+        console.error('Error in addOrUpdateBudget:', error);
+        res.status(500).send('An error occurred while updating the budget');
     }
 };
 
@@ -102,5 +112,6 @@ module.exports = {
     updateBudget,
     deleteBudget,
     getBudgetByUserId,
-    getBudgetByUserIdAndMonth
+    getBudgetByUserIdAndMonth,
+    addOrUpdateBudget
 }

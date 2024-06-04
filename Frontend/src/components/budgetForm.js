@@ -38,54 +38,21 @@ const BudgetForm = ({ onBudgetSubmit, onExpenseSubmit }) => {
       year: currentYear
     };
 
-    /*router.get('/budgets', budgetController.getAllBudgets);
-    router.get('/budget-user/:appUserId', budgetController.getBudgetByUserId);
-    router.get('/budgets/:id', budgetController.getBudgetById);
-    router.put('/budgets', budgetController.updateBudget);
-    router.delete('/budgets/:id', budgetController.deleteBudget);
-    router.post('/budgets', budgetController.addBudget);
-    router.get('/budget-month/:appUserId/:month/:year', budgetController.getBudgetByUserIdAndMonth);*/
+    axios.put(backendAPI + 'budgets', requestData, { withCredentials: true })
+    .then((response) => {
+      if (response.data) {
+        console.log('Success:', response.data);
+      } else {
+        setErrorMessage('Budget did not get updated');
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      setErrorMessage('Budget couldn\'t be updated');
+    });
 
-    axios.get(backendAPI + 'budget-month' + userId + '/' + currentMonth + '/' + currentYear, requestData, { withCredentials: true })
-      .then((response) => {
-        if (response.data){
-          axios.put(backendAPI + 'budgets', requestData, { withCredentials: true })
-          .then((response) => {
-            if (response.data) {
-              console.log('Success:', response.data);
-            } else {
-              setErrorMessage('Budget did not get updated');
-            }
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-            setErrorMessage('Budget couldnt be updated');
-          });
-        }
-        else{
-          axios.post(backendAPI + 'budgets', requestData, { withCredentials: true })
-          .then((response) => {
-            if (response.data) {
-              console.log('Success:', response.data);
-              // Store the user ID in local storage
-              // Redirect to home page on successful login
-            } else {
-              // Handle login failure
-              setErrorMessage('Budget did not get set');
-            }
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-            setErrorMessage('Budget couldnt be set');
-          });
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        setErrorMessage('Budget couldnt be set');
-      });
-      window.location.reload();
-  };
+  window.location.reload();
+};
 
   const handleExpenseChange = (e) => {
     setExpenseAmount(e.target.value);

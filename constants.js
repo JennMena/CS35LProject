@@ -1,6 +1,6 @@
 // Update with your credentials
 const DB_USER = 'sa';
-const DB_PASSWORD = 'Shivani@mn123';
+const DB_PASSWORD = '3950Spork!';
 const DB_SERVER = 'localhost';
 const DB_DATABASE = 'BUDGET';
 
