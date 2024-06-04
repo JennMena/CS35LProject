@@ -62,7 +62,7 @@ const BudgetGraph = () => {
   ];
 
   const remainingChartData = [
-    ...(remaining > 0 ? [{title: 'Remaining', value: remaining, color: '#4CAF50' }] : []),
+    {title: 'Remaining', value: remaining || 0, color: '#4CAF50' },
     ...(spent > 0 ? [{ title: 'Spent', value: spent, color: '#dc3545' }] : []),
   ];
 
