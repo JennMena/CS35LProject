@@ -181,5 +181,6 @@ module.exports = {
     addUser,
     updateUser,
     deleteUser,
-    login
+    login,
+    updateUserById
 };

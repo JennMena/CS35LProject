@@ -15,7 +15,7 @@
   /* Adjust the margin and position the button to the right */
   .home-page-container .history-button {
     margin-top: -90px; /* Adjust the margin as needed */
-    margin-left: 800px; /* Push the button to the right */
+    margin-left: 700px; /* Push the button to the right */
     background-color: rgb(108, 7, 139); /* Set button background color */
     color: white; /* Set button text color */
     font-size: 20px; /* Set font size */
@@ -33,15 +33,30 @@
   
   .home-page-container h1 {
     font-size: 3em;
-    color: #333;
-    margin-top: 700px;
+    font-family: 'Merriweather', serif; /* Update to a more elegant font */
+    font-weight: 600; /* Bold weight for emphasis */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow for depth */
+    color: #040763;
+    margin-top: 800px;
   }
   
-  .home-page-container h2 {
-    font-size: 2em;
+  /*.home-page-container h2 {
+    font-size: 2.5em;
     color: #4c0870;
     margin: 20px 0;
+  }*/
+
+  .home-page-container h2 {
+    font-size: 2.5em;
+    color: #4c0870;
+    margin: 20px 0;
+    font-family: 'Merriweather', serif; /* Update to a more elegant font */
+    font-weight: 700; /* Bold weight for emphasis */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow for depth */
+    letter-spacing: 0.01em; /* Slight letter spacing for readability */
+    line-height: 1.2; /* Adequate line height */
   }
+  
 
   .home-page-container h3 {
     font-size: 1.5em;
@@ -51,7 +66,7 @@
   }
 
   .home-page-container h4 {
-    font-size: 1.3em;
+    font-size: 1.4em;
     color: #21057e;
     margin-top: 50px;
     margin-right: 200px;
