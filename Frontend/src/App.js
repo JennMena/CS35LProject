@@ -171,9 +171,9 @@ function App() {
       <div className="App">
         <nav className="navbar navbar-expand-lg navbar-light fixed-top">
           <div className="container">
-            <Link className="navbar-brand" to={'/sign-in'}>
+            <Link className="navbar-brand" >
             <img src={Pig} alt="Pig Icon" className="mr-2" style={{ width: '50px', height: '50px', marginRight: '10px', marginLeft: '-10px'  }} />
-              PennyPig!
+              PennyPig
             </Link>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul className="navbar-nav ml-auto">

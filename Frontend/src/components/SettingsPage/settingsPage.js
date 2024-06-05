@@ -113,50 +113,54 @@ const SettingsPage = () => {
   });
 
   return (
-    <div>
+    <div className="settings-container">
       <h1>Settings</h1>
-      <div>
+      <div className="settings-item">
         <p>User ID: {userId}</p>
       </div>
-      <div>
+      <div className="settings-item">
         <p>Username: {username}</p>
       </div>
-      <div>
+      <div className="settings-item">
         <p>Registration Date: {formattedDate}</p>
       </div>
-      <div>
+      <div className="settings-item">
         <p>First Name: {firstName}</p>
         {isEditingFirstName ? (
-          <div>
+          <div className="edit-container">
             <input
               type="text"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
-            <button onClick={() => { handleFirstNameChange(); setIsEditingFirstName(false); }}>Update</button>
-            <button onClick={() => {setIsEditingFirstName(false); window.location.reload();}}>Cancel</button>
+            <div className="button-group">
+              <button onClick={() => { handleFirstNameChange(); setIsEditingFirstName(false); }}>Update</button>
+              <button onClick={() => {setIsEditingFirstName(false); window.location.reload();}}>Cancel</button>
+          </div>
           </div>
         ) : (
           <button onClick={handleEditFirstName}>Edit</button>
         )}
       </div>
-      <div>
+      <div className="settings-item">
         <p>Last Name: {lastName}</p>
         {isEditingLastName ? (
-          <div>
+          <div className="edit-container">
             <input
               type="text"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
+            <div className="button-group">
             <button onClick={() => { handleLastNameChange(); setIsEditingLastName(false); }}>Update</button>
             <button onClick={() => {setIsEditingLastName(false); window.location.reload();}}>Cancel</button>
+          </div>
           </div>
         ) : (
           <button onClick={handleEditLastName}>Edit</button>
         )}
       </div>
-      <div>
+      <div className="settings-item">
         <p>Password: *******</p>
         {isEditingPassword ? (
           <div>
@@ -165,11 +169,13 @@ const SettingsPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <div className="button-group">
             <button onClick={togglePasswordVisibility}>
               {isPasswordVisible ? '👁️' : '👁️‍🗨️'}
             </button>
             <button onClick={() => { handlePasswordChange(); setIsEditingPassword(false); }}>Update</button>
             <button onClick={() => {setIsEditingPassword(false); window.location.reload();}}>Cancel</button>
+          </div>
           </div>
         ) : (
           <button onClick={handleEditPassword}>Edit</button>

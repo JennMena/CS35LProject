@@ -43,8 +43,7 @@ const About = () => {
   const imageContainerStyle = {
     display: 'flex',
     justifyContent: 'center',
-    gap: '20px',
-    marginTop: '30px'
+    gap: '20px'
   };
 
   const memberStyle = {
@@ -54,7 +53,7 @@ const About = () => {
   };
 
   const nameStyle = {
-    marginBottom: '10px',
+    marginBottom: '8px',
     fontSize: '1rem',
     fontWeight: 'bold'
   };
@@ -68,11 +67,11 @@ const About = () => {
 
   return (
     <div style={aboutStyle}>
-      <h1 style={headerStyle}>About Us!</h1>
-      <p style={paragraphStyle}>What is ExpenseTracker?</p>
+      <h1 style={headerStyle}>About Us</h1>
+      <p style={paragraphStyle}>What is PennyPig?</p>
       <p style={paragraphStyle}>
         Built for UCLA's CS35L Spring '24 using React.js and SQL,<br />
-        <span style={{ fontWeight: 'bold' }}>ExpenseTracker!</span> is an interactive full stack finance-tracking application for all your budgeting needs.
+        <span style={{ fontWeight: 'bold' }}>PennyPig</span> is an interactive full stack finance-tracking application for all your budgeting needs.
       </p>
 
       <p style={paragraphStyle}>Created by ...</p>
@@ -87,11 +86,17 @@ const About = () => {
         </div>
         <div style={memberStyle}>
           <p style={nameStyle}>Jenn Mena</p>
-          <img src={Jenn} alt="Jenn" style={imageStyle} />
+          <img src={Jenn} alt="Jenn" style={{
+    width: '175px',
+    height: '200px',
+    borderRadius: '10px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+  }} />
         </div>
         <div style={memberStyle}>
           <p style={nameStyle}>Samyukhtha Rajkumar Sridevi</p>
-          <img src={Samyukhtha} alt="Sam" style={imageStyle} />
+          <img src={Samyukhtha} alt="Sam" style={ {width: '160px', height: '200px',borderRadius: '10px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'}} />
         </div>
       </div>
     </div>
