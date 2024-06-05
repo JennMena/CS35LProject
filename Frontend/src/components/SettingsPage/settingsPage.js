@@ -114,6 +114,7 @@ const SettingsPage = () => {
 
   return (
     <div className="settings-container">
+      <div className="box-container"> 
       <h1>Settings</h1>
       <div className="settings-item">
         <p>User ID: {userId}</p>
@@ -181,6 +182,7 @@ const SettingsPage = () => {
           <button onClick={handleEditPassword}>Edit</button>
         )}
       </div>
+    </div>
     </div>
   );
 };

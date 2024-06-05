@@ -9,9 +9,18 @@
     font-family: Arial, sans-serif;
     color: #333;
   }
+
+  .box-container {  
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+  }
   
   .settings-item {
-    margin-bottom: 1px;
     text-align: center;
   }
   
