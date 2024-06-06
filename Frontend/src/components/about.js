@@ -3,7 +3,7 @@ import './about.css';
 import Shivani from '../images/Shivani.jpg';
 import Quinn from '../images/Quinn.jpeg';
 import Jenn from '../images/Jenn.jpeg';
-import Samyukhtha from '../images/Samyukhtha.jpg';
+import Samyukhtha from '../images/Samyukhtha.jpeg';
 
 const About = () => {
   return (
