@@ -68,7 +68,7 @@ const BudgetGraph = () => {
 
   const formatAsDollars = (amount) => `$${(amount || 0).toFixed(2)}`;
 
-  const labelStyle = { fontSize: '3px' };
+  const labelStyle = { fontSize: '3px', fontWeight: 'bold' };
 
   return (
     <div>

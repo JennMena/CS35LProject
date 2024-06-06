@@ -6,34 +6,67 @@
 
 .history-page-container {
   background: linear-gradient(45deg, #ffffff, #add8e6);
-  min-height: 100vh;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  overflow: auto; /* Ensure the container can scroll */
+  padding: 20px; /* Optional: Add padding for better spacing */
 }
 
 .history-page-container h1 {
   font-size: 3em;
-  color: #333;
-  margin-top: 20rem;
+  font-weight: 600; /* Bold weight for emphasis */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow for depth */
+  background: linear-gradient(45deg, #ff007f, #ff6a00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 425px;
 }
 
-.button-container {
-  margin: 15px 0;
+.button-container{
+  display: flex;
+  flex-direction: row;
+  margin: 0px;
 }
 
 .button-container button {
-  margin: 0 10px;
-  padding: 6px 20px;
-  font-size: 16px;
-  cursor: pointer;
+  margin: 20px 10px;
+  color: #212529; /* Dark text color */
+  background-color: #f8f9fa; /* Light background color */
+  border-color: #f8f9fa; /* Border color matching the background */
 }
 
-#no-trans{
+.button-container button:hover {
+  color: #212529;
+  background-color: #e2e6ea; /* Slightly darker on hover */
+  border-color: #dae0e5; /* Slightly darker border on hover */
+}
+
+.button-container button:focus, .button-container button:focus {
+  color: #212529;
+  background-color: #e2e6ea;
+  border-color: #dae0e5;
+  box-shadow: 0 0 0 0.2rem rgba(216,217,219,0.5); /* Shadow for focus state */
+}
+
+.search-button,  .reset-button{
+  color: white;
+  padding: 10px 20px; /* Add padding */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Add border radius */
+  cursor: pointer; /* Change cursor on hover */
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+#no-trans {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .transaction-list {
   width: 100%;
   max-width: 1000px;
@@ -69,7 +102,7 @@
   right: 0.5rem;
 }
 
-.buttons button{
+.buttons button {
   background-color: inherit;
   border: none;
 }
@@ -77,6 +110,7 @@
 .buttons button:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.25);
+  transition: background-color 0.3s;
 }
 
 .transaction-item p {
@@ -89,17 +123,14 @@
 
 /* Conditional styling for income and expense */
 .income {
-  background-color: #e6ffe6;
-  /* light green */
+  background-color: #fff3e0; /* Light orange */
 }
 
 .expense {
-  background-color: #ffe6e6;
-  /* light red */
+  background-color: #ffe0e0; /* Light pink */
 }
 
-/*For the edit transaction dialog*/
-
+/* For the edit transaction dialog */
 .dialog-title {
   background: linear-gradient(45deg, #add8e6, #add8ff);
   color: black;
@@ -127,10 +158,8 @@
 }
 
 .dialog-button {
-  min-width: 100px; /* Minimum width for buttons */ 
+  min-width: 100px; /* Minimum width for buttons */
 }
-
-
 
 /* Media Queries for responsiveness */
 @media (max-width: 1200px) {

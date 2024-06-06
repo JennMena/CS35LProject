@@ -6,11 +6,11 @@ import './settingsPage.css'
 const backendAPI = "http://localhost:3001/";
 
 const SettingsPage = () => {
-  const [userId, setUserId] = useState(localStorage.getItem('userId'));
-  const [firstName, setFirstName] = useState(localStorage.getItem('firstName'));
-  const [lastName, setLastName] = useState(localStorage.getItem('lastName'));
-  const [registrationDate, setRegistrationDate] = useState(localStorage.getItem('registrationDate'));
-  const [username, setUsername] = useState(localStorage.getItem('username'));
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
+  const [firstName, setFirstName] = useState(sessionStorage.getItem('firstName'));
+  const [lastName, setLastName] = useState(sessionStorage.getItem('lastName'));
+  const [registrationDate, setRegistrationDate] = useState(sessionStorage.getItem('registrationDate'));
+  const [username, setUsername] = useState(sessionStorage.getItem('username'));
   const [isEditingFirstName, setIsEditingFirstName] = useState(false);
   const [isEditingLastName, setIsEditingLastName] = useState(false);
   const [password, setPassword] = useState('');
@@ -29,11 +29,11 @@ const SettingsPage = () => {
           setRegistrationDate(response.data.registrationDate);
           setUsername(response.data.username);
           setPassword('');  // Do not store password in local storage for security reasons
-          localStorage.setItem('userId', response.data.id);
-          localStorage.setItem('firstName', response.data.firstName);
-          localStorage.setItem('lastName', response.data.lastName);
-          localStorage.setItem('registrationDate', response.data.registrationDate);
-          localStorage.setItem('username', response.data.username);
+          sessionStorage.setItem('userId', response.data.id);
+          sessionStorage.setItem('firstName', response.data.firstName);
+          sessionStorage.setItem('lastName', response.data.lastName);
+          sessionStorage.setItem('registrationDate', response.data.registrationDate);
+          sessionStorage.setItem('username', response.data.username);
         }
       } catch (error) {
         console.error('Error verifying user:', error);
@@ -55,7 +55,7 @@ const SettingsPage = () => {
         { withCredentials: true }
       );
       setFirstName(response.data.user.firstName);
-      localStorage.setItem('firstName', response.data.user.firstName);
+      sessionStorage.setItem('firstName', response.data.user.firstName);
       setIsEditingFirstName(false);
     } catch (error) {
       console.error('Error updating first name:', error);
@@ -70,7 +70,7 @@ const SettingsPage = () => {
         { withCredentials: true }
       );
       setLastName(response.data.user.lastName);
-      localStorage.setItem('lastName', response.data.user.lastName);
+      sessionStorage.setItem('lastName', response.data.user.lastName);
       setIsEditingLastName(false);
     } catch (error) {
       console.error('Error updating last name:', error);
@@ -116,9 +116,9 @@ const SettingsPage = () => {
     <div className="settings-container">
       <div className="box-container"> 
       <h1>Settings</h1>
-      <div className="settings-item">
+{/*       <div className="settings-item">
         <p>User ID: {userId}</p>
-      </div>
+      </div> We don't show the User Id for security**/} 
       <div className="settings-item">
         <p>Username: {username}</p>
       </div>

@@ -100,8 +100,8 @@ const getTransWithUserIdAndCategory = async (appUserId, categoryName) => {
         const pool = await getConnection();
 
         // Log the parameters for debugging
-        console.log('appUserId:', appUserId);
-        console.log('categoryName:', categoryName);
+        //console.log('appUserId:', appUserId);
+        //console.log('categoryName:', categoryName);
 
         const result = await pool.request()
             .input('appUserId', sql.BigInt, appUserId)
@@ -116,7 +116,7 @@ const getTransWithUserIdAndCategory = async (appUserId, categoryName) => {
             `); // excluding canceled transactions
 
         // Log the query result for debugging
-        console.log('Query result:', result.recordset);
+        //console.log('Query result:', result.recordset);
 
         if (result.recordset.length === 0) {
             console.log('No transactions found for entered category.');
@@ -247,7 +247,7 @@ const getSumOfTransactionsByTypeAndMonth = async (appUserId, type, month, year) 
               AND MONTH(ft.transactionDate) = @month
               AND YEAR(ft.transactionDate) = @year
               AND ft.canceled = 0; `); //excluding the canceled transactions
-        console.log(result);
+        //console.log(result);
         return result.recordset[0].total;
     } catch (error) {
         console.log('Function services/getAllTransactionsOfMonth error:', error);

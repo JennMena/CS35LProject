@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './userProfile.css';
 
 const backendAPI = "http://localhost:3001/";
 
 const ProfilePage = ({ modalIsOpen, closeModal }) => {
-  const [userId, setUserId] = useState(localStorage.getItem('userId'));
-  const [firstName, setFirstName] = useState(localStorage.getItem('firstName'));
-  const [lastName, setLastName] = useState(localStorage.getItem('lastName'));
-  const [registrationDate, setRegistrationDate] = useState(localStorage.getItem('registrationDate'));
-  const [username, setUsername] = useState(localStorage.getItem('username'));
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
+  const [firstName, setFirstName] = useState(sessionStorage.getItem('firstName'));
+  const [lastName, setLastName] = useState(sessionStorage.getItem('lastName'));
+  const [registrationDate, setRegistrationDate] = useState(sessionStorage.getItem('registrationDate'));
+  const [username, setUsername] = useState(sessionStorage.getItem('username'));
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
 
@@ -23,11 +24,11 @@ const ProfilePage = ({ modalIsOpen, closeModal }) => {
           setLastName(response.data.lastName);
           setRegistrationDate(response.data.registrationDate);
           setUsername(response.data.username);
-          localStorage.setItem('userId', response.data.id);
-          localStorage.setItem('firstName', response.data.firstName);
-          localStorage.setItem('lastName', response.data.lastName);
-          localStorage.setItem('registrationDate', response.data.registrationDate);
-          localStorage.setItem('username', response.data.username);
+          sessionStorage.setItem('userId', response.data.id);
+          sessionStorage.setItem('firstName', response.data.firstName);
+          sessionStorage.setItem('lastName', response.data.lastName);
+          sessionStorage.setItem('registrationDate', response.data.registrationDate);
+          sessionStorage.setItem('username', response.data.username);
           setUserData(response.data); 
         } 
       } catch (error) {
@@ -56,22 +57,21 @@ const ProfilePage = ({ modalIsOpen, closeModal }) => {
 
 
   return (
-    <div>
+    <div className='ret'>
       {userData ? (
-        <div>
+        <div className="user-profile">
           <h2>About {userData.username}</h2>
           <p>Username: {userData.username}</p>
-          <p>User ID Number: {userData.id}</p>
+          {/* <p>User ID Number: {userData.id}</p> for security */}
           <p>First Name: {userData.firstName}</p>
           <p>Last Name: {userData.lastName}</p>
           <p>User since: {formattedDateMDY}</p>
           <button onClick={closeModal}>Close</button>
         </div>
       ) : (
-        <p>Loading user data...</p>
+        <p className="loading">Loading user data...</p>
       )}
     </div>
   );
 };
-
 export default ProfilePage;

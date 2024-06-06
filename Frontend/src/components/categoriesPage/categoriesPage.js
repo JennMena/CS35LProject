@@ -8,7 +8,7 @@ import './categoriesPage.css';
 const backendAPI = "http://localhost:3001/";
 
 const CategoriesPage = () => {
-  const [userId, setUserId] = useState(localStorage.getItem('userId'));
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
@@ -20,7 +20,7 @@ const CategoriesPage = () => {
         const response = await axios.get(`${backendAPI}users/${userId}`, { withCredentials: true });
         if (response.data.id) {
           setUserId(response.data.id);
-          localStorage.setItem('userId', response.data.id);
+          sessionStorage.setItem('userId', response.data.id);
         } else {
           navigate('/sign-in');
         }
@@ -84,7 +84,7 @@ const CategoriesPage = () => {
           {successMessage}
         </div>
       )}
-      <div className="button-container">
+      <div className="button-container-categories">
         <AddCategoryForm onAddCategory={handleAddCategory} />
       </div>
       <div className="categories-list">

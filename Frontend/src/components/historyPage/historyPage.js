@@ -81,12 +81,11 @@ const HistoryPage = () => {
   return (
     <div className="history-page-container">
       <h1>History of Transactions</h1>
-      <h5>Hey {username}!👋 Take a look at all your transactions.</h5>
       {userId ? (
         <>
           <div className="button-container">
-            <button type="button" className="btn btn-light" onClick={handleDownloadStatement}>Download Statement</button>
-            <button type="button" className="btn btn-light" onClick={handleSendEmail}>Send Statement to Email</button>
+            <button type="button" onClick={handleDownloadStatement}>Download Statement</button>
+            <button type="button" onClick={handleSendEmail}>Send Statement to Email</button>
           </div>
           {message && (
             <div className={`alert mt-3 ${messageType === 'success' ? 'alert-success' : 'alert-danger'}`} role="alert">

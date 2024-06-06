@@ -18,7 +18,6 @@ const Logout = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('userId'); // Adjust the key as per your storage
     sessionStorage.removeItem('userId');
     navigate('/sign-in');
     window.location.reload();
@@ -27,7 +26,7 @@ const Logout = () => {
   return (
     <div className="logout-container">
       <h3>Are you sure you want to log out?</h3>
-      <button onClick={openModal}>Log Out</button>
+      <button onClick={openModal} className='logout-button'>Log Out</button>
 
       <Modal
         isOpen={isModalOpen}
@@ -45,9 +44,9 @@ const Logout = () => {
         }}
       >
         <h2>Confirm Logout</h2>
-        <p>Are you sure you want to log out?</p>
-        <button onClick={handleLogout}>Yes, Log Out</button>
-        <button onClick={closeModal}>Cancel</button>
+        <p >Are you sure you want to log out?</p>
+        <button onClick={handleLogout} className='confirm-button'>Yes, Log Out</button>
+        <button onClick={closeModal} className='cancel-button'>Cancel</button>
       </Modal>
     </div>
   );
