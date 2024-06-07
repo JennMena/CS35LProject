@@ -1,7 +1,7 @@
-# BudgetBuddy
+# PennyPig
 
 ## Overview
-**BudgetBuddy** is an expense tracking web application that allows users to set and adjust their budget goals. Users can input their expenses, which will be tracked and displayed through a graph, showing their progress toward their monthly budget limit. The app includes features for entering expenses via a form, searching past purchases, and categorizing expenses to maintain an organized record of financial transactions.
+**PennyPig** is an expense tracking web application that allows users to set and adjust their budget goals. Users can input their expenses, which will be tracked and displayed through a graph, showing their progress toward their monthly budget limit. The app includes features for entering expenses via a form, searching past purchases, and categorizing expenses to maintain an organized record of financial transactions.
 
 ## Features
 - Set and adjust budget goals
@@ -52,7 +52,7 @@
 Once the setup is complete, the project should be fully connected and operational. Create your user account and start managing your expenses!
 
 ## Database Structure
-The database schema for BudgetBuddy is designed to manage user information, roles, permissions, categories, budgets, and financial transactions. Currently, the only view implemented is for users, but the project is designed with future work in mind, such as adding admin and auditor views.
+The database schema for PennyPig is designed to manage user information, roles, permissions, categories, budgets, and financial transactions. Currently, the only view implemented is for users, but the project is designed with future work in mind, such as adding admin and auditor views.
 
 ### Tables
 - **AppUser**: Stores user information including personal details and credentials.
@@ -71,7 +71,7 @@ The database schema for BudgetBuddy is designed to manage user information, role
 
 
 ## Front-End Structure
-The front end of BudgetBuddy is built using React and includes the following main pages:
+The front end of PennyPig is built using React and includes the following main pages:
 
 - **Login Page**: Allows users to log into their accounts.
 - **Sign Up Page**: Enables new users to create an account.
