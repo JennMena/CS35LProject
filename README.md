@@ -1,14 +1,17 @@
 # PennyPig
 
 ## Overview
-**PennyPig** is an expense tracking web application that allows users to set and adjust their budget goals. Users can input their expenses, which will be tracked and displayed through a graph, showing their progress toward their monthly budget limit. The app includes features for entering expenses via a form, searching past purchases, and categorizing expenses to maintain an organized record of financial transactions.
+**PennyPig** is an expense tracking web application that helps users manage their expenses and income, set budget goals, and visualize their progress with graphs, while also allowing for transaction history search, updates, and deletions.
 
 ## Features
-- Set and adjust budget goals
-- Track expenses and view progress via a graphical display
-- Enter expenses through a form
-- Search past purchases
-- Categorize expenses for organized financial management
+- Track Expenses and Income by Category: Easily categorize your expenses and income to see where your money is going.
+- Set and Adjust Budget Goals: Create and modify budget goals to fit your financial plans and stay on track.
+- Graph Displays Progress: Visualize your spending with graphs that show your progress toward monthly budget limits.
+- Transaction History Page: View a detailed history of all your transactions in one place.
+- Search by Category: Quickly find past purchases by searching through categories.
+- Download or Email Excel File of Transactions: Export your transaction history to an Excel file for offline access or email it directly.
+- Update or Delete Transactions: Make changes to your records by updating or deleting transactions as needed.
+- Personal Settings: Customize your user experience with personal settings tailored to your preferences.
 
 ## Tech Stack
 **Back-end:** Express.js, Node.js, Microsoft SQL Database  
